@@ -13,7 +13,7 @@ import { sendResumeTool } from '../tools/send_resume_tool'
 class ResumeAgent extends Agent {
   provider = 'openai'
   model = env('OPENAI_MODEL', 'gpt-5.4-mini-2026-03-17')
-  temperature = 0.7
+  temperature = 0.5
   maxTokens = 500
   tools = [sendResumeTool]
 
@@ -24,6 +24,7 @@ export default class AIService {
   private profileData: string
   private projectsData: string
   private skillsData: string
+  private contactData: string
   private systemPrompt: string
 
   constructor() {
@@ -32,6 +33,7 @@ export default class AIService {
     this.profileData = fs.readFileSync(path.join(dataPath, 'profile.md'), 'utf-8')
     this.projectsData = fs.readFileSync(path.join(dataPath, 'projects.md'), 'utf-8')
     this.skillsData = fs.readFileSync(path.join(dataPath, 'skills.md'), 'utf-8')
+    this.contactData = fs.readFileSync(path.join(dataPath, 'contact.md'), 'utf-8')
     this.systemPrompt = fs.readFileSync(path.join(dataPath, 'system-prompt.md'), 'utf-8')
   }
 
@@ -69,7 +71,8 @@ export default class AIService {
       const context = {
         profile: this.profileData,
         projects: this.projectsData,
-        skills: this.skillsData
+        skills: this.skillsData,
+        contact: this.contactData
       }
 
       // Add session context for tools
@@ -97,10 +100,11 @@ export default class AIService {
           .replace('{{profile}}', this.profileData)
           .replace('{{projects}}', this.projectsData)
           .replace('{{skills}}', this.skillsData)
+          .replace('{{contact}}', this.contactData)
 
         const directResponse = await brain.chat(userMessage, {
           system: systemPrompt,
-          temperature: 0.7,
+          temperature: 0.5,
           maxTokens: 500
         })
 
@@ -138,6 +142,10 @@ export default class AIService {
 
     if (msg.includes('skill')) {
       return "My core skills include TypeScript, React, Node.js, and Three.js. I'm proficient in both frontend (React, Vue, Three.js) and backend (Node.js, PHP, PostgreSQL) development, plus DevOps with Docker, AWS, and Terraform. I have 7+ years of professional experience."
+    }
+
+    if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
+      return "You can reach me at liva.ramarolahy@gmail.com or call me at 064-591-0514. I'm based in Bangkok, Thailand. Feel free to get in touch to discuss opportunities or collaborations!"
     }
 
     return "I'd be happy to discuss my experience as a full-stack developer, the Strav framework I created, or any of my projects in 3D visualization, e-commerce, or cloud infrastructure. What would you like to know?"
