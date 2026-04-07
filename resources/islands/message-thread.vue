@@ -1,35 +1,22 @@
 <template>
   <div>
-    <div
-      ref="messagesContainer"
-    >
-      <div v-if="isLoading">
-        <div ></div>
-      </div>
-
-      <div v-else-if="!hasMessages" >
-        <p >No messages yet</p>
-        <p >Start a conversation by typing a message below</p>
-      </div>
-
-      <div v-else>
-        <div
-          v-for="message in currentMessages"
-          :key="message.id"
-          class="message-container"
-          :class="{
-            'user-message': message.role === 'user',
-            'assistant-message': message.role === 'assistant'
-          }"
-        >
-          <div class="message" v-html="renderMarkdown(message.content)">
-          </div>
+    <div>
+      <MessageHeader/>
+      <div
+        v-for="message in currentMessages"
+        :key="message.id"
+        class="message-container"
+        :class="{
+          'user-message': message.role === 'user',
+          'assistant-message': message.role === 'assistant'
+        }"
+      >
+        <div class="message" v-html="renderMarkdown(message.content)">
         </div>
-
-        <!-- Activity indicator when processing -->
-        <div v-if="isPending" class="activity-indicator">
-          Processing...
-        </div>
+      </div>
+      <!-- Activity indicator when processing -->
+      <div v-if="isPending" class="activity-indicator">
+        Processing...
       </div>
     </div>
 
@@ -45,13 +32,12 @@ import { storeToRefs } from 'pinia'
 import { useMessageStore } from './stores/messageStore'
 import { useSessionId } from './composables/useSessionId'
 import { useMarkdown } from './composables/useMarkdown'
+import MessageHeader from './message-header.vue'
 
 const messageStore = useMessageStore()
 const { getOrCreateSessionId } = useSessionId()
 const { renderMarkdown } = useMarkdown()
 const { currentMessages, hasMessages, isLoading, error, isPending } = storeToRefs(messageStore)
-
-const messagesContainer = ref<HTMLElement>()
 
 const scrollToBottom = async () => {
   await nextTick()

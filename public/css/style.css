@@ -76,19 +76,24 @@ body {
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
   --color-gray-500: #6b7280;
   --color-gray-600: #4b5563;
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
+  --color-yellow-50: #fefce8;
+  --color-yellow-100: #fef9c3;
   --color-yellow-500: #eab308;
   --color-yellow-600: #ca8a04;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
 }
 
 .app .layout {
   display: grid;
   position: fixed;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 120px;
+  grid-template-rows: 50px 1fr 110px;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   top: 0;
@@ -182,6 +187,50 @@ body {
   padding: 0 15px;
   min-width: 200px;
   line-height: 1.8;
+}
+.chat .message-header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 0px;
+  margin-bottom: 50px;
+  border-radius: 7px;
+  padding: 20px;
+}
+.chat .message-header .hello {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.chat .message-header .hello em {
+  font-style: normal;
+}
+.chat .message-header .photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat .message-header .profile-photo-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -25px;
+}
+.chat .message-header .profile-photo-container img {
+  margin-top: 10px;
+}
+.chat .actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  column-gap: 50px;
+}
+.chat .actions button {
+  padding: 7px 15px;
+  border-radius: 7px;
+  cursor: pointer;
 }
 
 #messages {
@@ -369,10 +418,10 @@ body {
   border-top: 1px solid var(--color-gray-200);
 }
 .light .prompt-field {
-  border: 1px solid var(--color-gray-500);
+  border: 1px solid var(--color-gray-200);
 }
 .light .prompt-field:focus {
-  border: 1px solid var(--color-gray-200);
+  border: 1px solid var(--color-gray-300);
 }
 .light .message strong {
   color: var(--color-yellow-600);
@@ -398,6 +447,18 @@ body {
   background-color: var(--color-gray-100);
   border: 1px solid var(--color-gray-200);
 }
+.light .message-header {
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-200);
+}
+.light .message-header em {
+  color: var(--color-red-600);
+}
+.light .actions button {
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-200);
+  color: var(--color-gray-600);
+}
 
 /*
 * Dark mode theme
@@ -418,12 +479,12 @@ body {
   border-top: 1px solid var(--color-gray-700);
 }
 .dark .prompt-field {
-  border: 1px solid var(--color-gray-500);
+  border: 1px solid var(--color-gray-600);
   background-color: var(--color-gray-700);
   color: var(--color-gray-100);
 }
 .dark .prompt-field:focus {
-  border: 1px solid var(--color-gray-200);
+  border: 1px solid var(--color-gray-500);
 }
 .dark .message strong {
   color: var(--color-yellow-500);
@@ -448,4 +509,16 @@ body {
 .dark .user-message .message {
   background-color: var(--color-gray-700);
   border: 1px solid var(--color-gray-600);
+}
+.dark .message-header {
+  background-color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-600);
+}
+.dark .message-header em {
+  color: var(--color-yellow-600);
+}
+.dark .actions button {
+  background-color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-600);
+  color: var(--color-gray-200);
 }

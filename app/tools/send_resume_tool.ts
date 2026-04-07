@@ -53,12 +53,6 @@ export const sendResumeTool = defineTool({
         .template('resume', {
           recipientEmail: email,
           conversationSummary: conversationSummary,
-          messageCount: messageCount,
-          sessionDate: currentDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          }),
           appUrl: appUrl,
           year: currentDate.getFullYear()
         })
@@ -68,8 +62,6 @@ export const sendResumeTool = defineTool({
           contentType: 'application/pdf'
         })
         .send()
-
-
       return {
         success: true,
         message: `I've successfully sent my resume to ${email}. The email includes my CV as a PDF attachment along with a summary of our conversation. You should receive it shortly!`
