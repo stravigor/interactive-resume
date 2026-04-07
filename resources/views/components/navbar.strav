@@ -7,7 +7,7 @@
         <a href="https://www.linkedin.com/in/ramarolahy/" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
       </li>
       <li>
-        <a href="https://github.com/stravigor/strav" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+        <a href="https://github.com/stravigor/interactive-resume" target="_blank"><i class="fab fa-github fa-fw"></i></a>
       </li>
       <li class="theme-selector">
         <vue:navbar/mode-selector/>

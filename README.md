@@ -42,12 +42,7 @@ cp .env.example .env
 bun run strav.ts migrate
 ```
 
-4. Seed the database with projects and skills:
-```bash
-bun run strav.ts seed --seeder=ProjectsAndSkillsSeeder
-```
-
-5. Start the development server:
+4. Start the development server:
 ```bash
 bun dev
 ```
@@ -61,14 +56,21 @@ resume/
 ├── app/
 │   ├── controllers/    # Request handlers
 │   ├── models/         # Database models
-│   └── services/       # Business logic
+│   ├── services/       # Business logic
+│   └── tools/          # AI tools and integrations
+├── data/               # Resume data (markdown files)
+│   ├── profile.md      # Personal profile and summary
+│   ├── projects.md     # Portfolio projects
+│   ├── skills.md       # Technical skills
+│   └── system-prompt.md# AI system instructions
 ├── database/
 │   ├── schemas/        # Database table definitions
 │   ├── migrations/     # Database migrations
 │   └── seeders/        # Data seeders
-├── islands/            # Vue.js components
 ├── resources/
-│   └── views/          # Strav templates
+│   ├── islands/        # Vue.js components
+│   ├── views/          # Strav templates
+│   └── css/            # Stylesheets
 ├── config/             # Configuration files
 └── start/
     └── routes.ts       # Application routes
@@ -90,6 +92,25 @@ resume/
 - **E-commerce Suite** - Complete retail solution
 - **Production System** - Manufacturing execution
 
+## Data Management
+
+The application uses markdown files for portfolio data instead of database storage:
+
+### Resume Content Files
+- **`data/profile.md`** - Personal profile, summary, and achievements
+- **`data/projects.md`** - Detailed project descriptions and tech stacks
+- **`data/skills.md`** - Technical skills with proficiency levels
+- **`data/system-prompt.md`** - AI assistant instructions and context
+
+### Updating Content
+To modify the resume content:
+
+1. Edit the relevant markdown file in the `data/` directory
+2. Restart the development server to reload the content
+3. The AI assistant will automatically use the updated information
+
+The AI service reads these files at startup and uses them to provide accurate, contextual responses about skills, projects, and experience.
+
 ## Development
 
 ### Running Tests
@@ -104,7 +125,7 @@ bun build
 
 ### Database Commands
 ```bash
-# Run migrations
+# Run migrations (for chat/conversation data)
 bun run strav.ts migrate
 
 # Rollback migrations
@@ -112,10 +133,9 @@ bun run strav.ts rollback
 
 # Fresh database (drop all tables and re-migrate)
 bun run strav.ts fresh
-
-# Run seeders
-bun run strav.ts seed
 ```
+
+> **Note**: Projects and skills data are stored in markdown files in the `data/` directory, not in the database.
 
 ## Deployment
 
