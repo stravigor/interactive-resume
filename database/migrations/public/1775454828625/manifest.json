@@ -1,0 +1,33 @@
+{
+  "version": "1775454828625",
+  "message": "migration",
+  "generatedAt": "2026-04-06T05:53:48.630Z",
+  "summary": {
+    "tablesToCreate": 3,
+    "tablesToDrop": 1,
+    "tablesToModify": 0,
+    "enumsToCreate": 1,
+    "enumsToModify": 0,
+    "enumsToDrop": 0
+  },
+  "executionOrder": {
+    "up": [
+      "enums/up.sql",
+      "tables/conversation/up.sql",
+      "tables/message/up.sql",
+      "tables/user/up.sql",
+      "tables/_strav_sessions/up.sql",
+      "constraints/up.sql",
+      "indexes/up.sql"
+    ],
+    "down": [
+      "indexes/down.sql",
+      "constraints/down.sql",
+      "tables/_strav_sessions/down.sql",
+      "tables/user/down.sql",
+      "tables/message/down.sql",
+      "tables/conversation/down.sql",
+      "enums/down.sql"
+    ]
+  }
+}

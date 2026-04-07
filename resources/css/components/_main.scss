@@ -1,0 +1,22 @@
+.app {
+  .layout {
+    display: grid;
+    position: fixed;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 120px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+  .container {
+    width: 800px;
+    margin: 0 auto;
+  }
+  .spacer {
+    flex-grow: 1;
+  }
+}

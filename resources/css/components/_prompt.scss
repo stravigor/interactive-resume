@@ -1,0 +1,31 @@
+.prompt {
+  padding-top: 25px;
+  pointer-events: auto;
+  .container {
+    width: 700px;
+    // height: 100%;
+    .prompt-field {
+      border-radius: 3px;
+      padding: 7px 15px;
+      width: 100%;
+      position: relative;
+      min-height: 1.5em;
+      &:focus {
+        outline: none;
+      }
+      &:empty::before {
+        content: attr(data-placeholder);
+        color: #999;
+        pointer-events: none;
+        position: absolute;
+      }
+    }
+    .displaimer {
+      font-size: 13px;
+      color: var(--color-gray-500);
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+}
+

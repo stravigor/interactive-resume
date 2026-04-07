@@ -1,0 +1,8 @@
+@layout('layouts/app')
+
+@section('content')
+<div id="messages">
+  <vue:message-thread />
+</div>
+<input type="hidden" id="available-session-id" value="{{ sessionId }}"/>
+@end

@@ -1,0 +1,17 @@
+<div class="navbar">
+  <div class="container">
+    <span class="logo">liva Ramarolahy</span>
+    <div class="spacer"></div>
+    <ul>
+      <li>
+        <a href="https://www.linkedin.com/in/ramarolahy/" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
+      </li>
+      <li>
+        <a href="https://github.com/stravigor/strav" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </li>
+      <li class="theme-selector">
+        <vue:navbar/mode-selector/>
+      </li>
+    </ul>
+  </div>
+</div>

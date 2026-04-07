@@ -1,0 +1,451 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+body {
+  /* 4. Increase line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+@font-face {
+  font-family: "RopaSoftPro";
+  src: url("/fonts/RopaSoft/ttf/RopaSoftPro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: "RopaSoftPro", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 17px;
+}
+
+.logo {
+  font-family: "Passero One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+}
+
+.app .layout {
+  display: grid;
+  position: fixed;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 120px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+.app .container {
+  width: 800px;
+  margin: 0 auto;
+}
+.app .spacer {
+  flex-grow: 1;
+}
+
+.navbar {
+  pointer-events: auto;
+}
+.navbar .container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.navbar .container .logo {
+  display: block;
+  height: 100%;
+  align-content: center;
+  font-size: 20px;
+}
+.navbar .container ul {
+  padding-inline-start: 0;
+  height: 100%;
+  margin-right: 15px;
+}
+.navbar .container ul li {
+  float: left;
+  list-style: none;
+  display: grid;
+  align-content: center;
+  height: 100%;
+  min-width: 40px;
+  text-align: center;
+}
+.navbar .container ul li.theme-selector {
+  cursor: pointer;
+}
+
+.prompt {
+  padding-top: 25px;
+  pointer-events: auto;
+}
+.prompt .container {
+  width: 700px;
+}
+.prompt .container .prompt-field {
+  border-radius: 3px;
+  padding: 7px 15px;
+  width: 100%;
+  position: relative;
+  min-height: 1.5em;
+}
+.prompt .container .prompt-field:focus {
+  outline: none;
+}
+.prompt .container .prompt-field:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+  pointer-events: none;
+  position: absolute;
+}
+.prompt .container .displaimer {
+  font-size: 13px;
+  color: var(--color-gray-500);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.chat.container {
+  margin: 100px auto 150px;
+}
+.chat.container .message-container {
+  display: grid;
+  margin-bottom: 25px;
+}
+.chat.container .message-container.user-message {
+  justify-items: end;
+}
+.chat.container .message {
+  border-radius: 7px;
+  padding: 0 15px;
+  min-width: 200px;
+  line-height: 1.8;
+}
+
+#messages {
+  padding: 20px;
+}
+
+.activity-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 15px 0;
+  opacity: 0.7;
+  font-style: italic;
+}
+.activity-indicator::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  margin-right: 8px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+.message h1, .message h2, .message h3, .message h4, .message h5, .message h6 {
+  margin: 0.5em 0;
+  font-weight: 600;
+}
+.message h1 {
+  font-size: 1.5em;
+}
+.message h2 {
+  font-size: 1.3em;
+}
+.message h3 {
+  font-size: 1.1em;
+}
+.message h4 {
+  font-size: 1em;
+}
+.message h5 {
+  font-size: 0.9em;
+}
+.message h6 {
+  font-size: 0.85em;
+}
+.message p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+.message a {
+  color: var(--color-blue-500);
+  text-decoration: underline;
+}
+.message a:hover {
+  color: var(--color-blue-600);
+}
+.message ul, .message ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+.message li {
+  margin: 0.25em 0;
+  line-height: 1.6;
+}
+.message code {
+  background-color: var(--color-gray-100);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+}
+.message pre.code-block {
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-100);
+  padding: 1em;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+.message pre.code-block code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.9em;
+}
+.message blockquote {
+  border-left: 3px solid var(--color-gray-300);
+  padding-left: 1em;
+  margin: 0.5em 0;
+  color: var(--color-gray-600);
+  font-style: italic;
+}
+.message hr {
+  border: none;
+  border-top: 1px solid var(--color-gray-300);
+  margin: 1em 0;
+}
+.message table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5em 0;
+}
+.message th, .message td {
+  border: 1px solid var(--color-gray-300);
+  padding: 0.5em;
+  text-align: left;
+}
+.message th {
+  background-color: var(--color-gray-100);
+  font-weight: 600;
+}
+.message img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin: 0.5em 0;
+}
+.message strong {
+  font-weight: 600;
+}
+.message em {
+  font-style: italic;
+}
+.message s, .message del {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.dark .message code {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+.dark .message pre.code-block {
+  background-color: var(--color-gray-950);
+  color: var(--color-gray-100);
+}
+.dark .message blockquote {
+  border-left-color: var(--color-gray-600);
+  color: var(--color-gray-400);
+}
+.dark .message hr {
+  border-top-color: var(--color-gray-600);
+}
+.dark .message th, .dark .message td {
+  border-color: var(--color-gray-600);
+}
+.dark .message th {
+  background-color: var(--color-gray-700);
+}
+.dark .message a {
+  color: var(--color-blue-400);
+}
+.dark .message a:hover {
+  color: var(--color-blue-300);
+}
+
+/*
+* Light mode theme
+*/
+.light {
+  background-color: white;
+  color: var(--color-gray-700);
+}
+.light .navbar {
+  border-bottom: 1px solid var(--color-gray-200);
+  background-color: white;
+}
+.light .navbar a {
+  color: var(--color-gray-700);
+}
+.light .prompt {
+  background-color: white;
+  border-top: 1px solid var(--color-gray-200);
+}
+.light .prompt-field {
+  border: 1px solid var(--color-gray-500);
+}
+.light .prompt-field:focus {
+  border: 1px solid var(--color-gray-200);
+}
+.light .message strong {
+  color: var(--color-yellow-600);
+}
+.light .message table {
+  margin: 25px 0;
+}
+.light .message table thead th {
+  background-color: var(--color-gray-200);
+  border: 1px solid var(--color-gray-200);
+}
+.light .message table tbody {
+  border-bottom: 1px solid var(--color-gray-200);
+  border-right: 1px solid var(--color-gray-200);
+}
+.light .message table tbody td {
+  border-left: 1px solid var(--color-gray-200);
+}
+.light .message table tbody tr:nth-child(even) {
+  background-color: var(--color-gray-100);
+}
+.light .user-message .message {
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-200);
+}
+
+/*
+* Dark mode theme
+*/
+.dark {
+  background-color: var(--color-gray-800);
+  color: var(--color-gray-200);
+}
+.dark .navbar {
+  border-bottom: 1px solid var(--color-gray-700);
+  background-color: var(--color-gray-800);
+}
+.dark .navbar a {
+  color: var(--color-gray-50);
+}
+.dark .prompt {
+  background-color: var(--color-gray-800);
+  border-top: 1px solid var(--color-gray-700);
+}
+.dark .prompt-field {
+  border: 1px solid var(--color-gray-500);
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-100);
+}
+.dark .prompt-field:focus {
+  border: 1px solid var(--color-gray-200);
+}
+.dark .message strong {
+  color: var(--color-yellow-500);
+}
+.dark .message table {
+  margin: 25px 0;
+}
+.dark .message table thead th {
+  background-color: var(--color-gray-600);
+  border: 1px solid var(--color-gray-600);
+}
+.dark .message table tbody {
+  border-bottom: 1px solid var(--color-gray-600);
+  border-right: 1px solid var(--color-gray-600);
+}
+.dark .message table tbody td {
+  border-left: 1px solid var(--color-gray-600);
+}
+.dark .message table tbody tr:nth-child(even) {
+  background-color: var(--color-gray-700);
+}
+.dark .user-message .message {
+  background-color: var(--color-gray-700);
+  border: 1px solid var(--color-gray-600);
+}
