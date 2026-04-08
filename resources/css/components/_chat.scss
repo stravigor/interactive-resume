@@ -2,17 +2,37 @@
   &.container {
     margin: 100px auto 150px;
     .message-container {
-      display: grid;
+      display: flex;
       margin-bottom: 25px;
       &.user-message {
-        justify-items: end;
+        justify-content: flex-end;
       }
     }
     .message {
       border-radius: 7px;
-      padding: 0 15px;
+      padding: 7px 20px;
       min-width: 200px;
       line-height: 1.8;
+      &.user-message {
+        background-color: var(--user-bg);
+        color: var(--user-text);
+        justify-items: end;
+      }
+      &.assistant-message {
+        background-color: var(--bot-bg);
+        color: var(--bot-text);
+      }
+      strong {
+        color: var(--accent);
+      }
+      em {
+        font-style: normal;
+        color: var(--accent);
+        font-weight: bold;
+      }
+      p {
+        margin: 7px 0;
+      }
     }
   }
   .message-header {
@@ -24,13 +44,6 @@
     margin-bottom: 50px;
     border-radius: 7px;
     padding: 20px;
-    .hello {
-      font-size: 40px;
-      margin-bottom: 20px;
-      em {
-        font-style: normal;
-      }
-    }
     .photo-container {
       display: flex;
       align-items: center;
@@ -47,16 +60,19 @@
       }
     }
   }
-  .actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
+  .predefined-questions {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
     column-gap: 50px;
-    button {
+    span {
       padding: 7px 15px;
-      border-radius: 7px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      margin-right: 20px;
       cursor: pointer;
+      display: inline-block;
+      border: 1px dashed var(--subtle);
+      background-color: var(--bg);
     }
   }
 }

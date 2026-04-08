@@ -1,6 +1,8 @@
 .prompt {
   padding-top: 25px;
   pointer-events: auto;
+  background-color: var(--bg);
+  border-top: 1px solid var(--subtle);
   .container {
     width: 700px;
     // height: 100%;
@@ -10,21 +12,23 @@
       width: 100%;
       position: relative;
       min-height: 1.5em;
+      border: 1px solid var(--subtle);
       &:focus {
         outline: none;
+        border: 1px solid var(--muted);
       }
       &:empty::before {
         content: attr(data-placeholder);
-        color: #999;
+        color: var(--muted);
         pointer-events: none;
         position: absolute;
       }
     }
     .displaimer {
       font-size: 13px;
-      color: var(--color-gray-500);
       text-align: center;
       margin-top: 10px;
+      color: var(--muted);
     }
   }
 }

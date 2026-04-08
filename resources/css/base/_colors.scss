@@ -1,18 +1,27 @@
-:root {
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
 
-  --color-yellow-50: #fefce8;
-  --color-yellow-100: #fef9c3;
-  --color-yellow-500: #eab308;
-  --color-yellow-600: #ca8a04;
-
-  --color-red-500: #ef4444;
-  --color-red-600: #dc2626;
+:root{
+  --bg:#FAFAF8;
+  --text:#1a1a1a;
+  --muted:#999;
+  --subtle:#e8e7e4;
+  --accent:#C4654A;
+  --bot-bg:#EEECEA;
+  --bot-text:#1a1a1a;
+  --user-bg:#1a1a1a;
+  --user-text:#FAFAF8;
+  --input-bg:#fff;
+  --radius:22px;
+  --font:'Outfit',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#131313;
+  --text:#e4e2de;
+  --muted:#6b6b6b;
+  --subtle:#2a2a2a;
+  --accent:#E07A5F;
+  --bot-bg:#1e1e1e;
+  --bot-text:#ddd;
+  --user-bg:#E07A5F;
+  --user-text:#fff;
+  --input-bg:#1a1a1a;
 }

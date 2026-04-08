@@ -1,6 +1,6 @@
 <div class="prompt">
   <div class="container">
-    <vue:prompt-input placeholder="Ask me ..." />
+    <vue:prompt-input placeholder="Ask me anything..." />
     <div class="displaimer">AI can make mistakes. Please double-check responses. - Powered by GPT 5.4</div>
   </div>
 </div>

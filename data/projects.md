@@ -25,30 +25,6 @@ A comprehensive full-stack TypeScript framework built from scratch, featuring de
 
 ---
 
-## 3D Product Konfigurator
-**Category:** Frontend | **Priority:** 95 | **Featured:** Yes
-**Role:** Lead Frontend Developer
-
-### Description
-Interactive 3D product customization tool built with React and Three.js. Features real-time rendering at 60fps, custom shader implementations, texture mapping, and mobile optimization. Handles complex 3D models with thousands of polygons while maintaining smooth performance.
-
-### Tech Stack
-- React
-- Three.js
-- TypeScript
-- WebGL
-- Redux
-
-### Key Features
-- Real-time 3D rendering
-- 60fps performance
-- Custom shader implementations
-- Mobile-optimized
-- Texture and material customization
-- Export configurations
-
----
-
 ## Infrastructure Management Portal
 **Category:** Infrastructure | **Priority:** 90 | **Featured:** Yes
 **Role:** Full-Stack Developer

@@ -6184,11 +6184,6 @@ Component that was made reactive: `, type);
   function createTextVNode(text = " ", flag = 0) {
     return createVNode(Text, null, text, flag);
   }
-  function createStaticVNode(content, numberOfNodes) {
-    const vnode = createVNode(Static, null, content);
-    vnode.staticCount = numberOfNodes;
-    return vnode;
-  }
   function createCommentVNode(text = "", asBlock = false) {
     return asBlock ? (openBlock(), createBlock(Comment, null, text)) : createVNode(Comment, null, text);
   }
@@ -12839,177 +12834,19 @@ Only state can be modified.`);
     app.use(pinia);
   };
 
-  // ../../../Strav.dev/sources/strav/packages/signal/src/broadcast/client.ts
-  class Subscription {
-    channel;
-    sendFn;
-    leaveFn;
-    listeners = new Map;
-    constructor(channel, sendFn, leaveFn) {
-      this.channel = channel;
-      this.sendFn = sendFn;
-      this.leaveFn = leaveFn;
-    }
-    on(event, callback) {
-      let set = this.listeners.get(event);
-      if (!set) {
-        set = new Set;
-        this.listeners.set(event, set);
-      }
-      set.add(callback);
-      return () => {
-        set.delete(callback);
-      };
-    }
-    send(event, data) {
-      this.sendFn({ t: "msg", c: this.channel, e: event, d: data });
-    }
-    leave() {
-      this.sendFn({ t: "unsub", c: this.channel });
-      this.listeners.clear();
-      this.leaveFn();
-    }
-    _dispatch(event, data) {
-      const set = this.listeners.get(event);
-      if (set)
-        for (const cb of set)
-          cb(data);
-    }
+  // resources/islands/message-header.vue
+  var __component__ = {};
+  var _hoisted_1 = { class: "message-container" };
+  function render(_ctx, _cache) {
+    return openBlock(), createElementBlock("div", _hoisted_1, [..._cache[0] || (_cache[0] = [
+      createBaseVNode("div", { class: "message assistant-message" }, [
+        createBaseVNode("p", null, "Hi! I'm Liva, a software engineer who builds clean, scalable web applications."),
+        createBaseVNode("p", null, "Ask me anything, or pick a question below to get started.")
+      ], -1)
+    ])]);
   }
-
-  class Broadcast {
-    ws = null;
-    url;
-    maxReconnectAttempts;
-    reconnectAttempt = 0;
-    reconnectTimer = null;
-    subscriptions = new Map;
-    listeners = new Map;
-    queue = [];
-    _connected = false;
-    _clientId = null;
-    constructor(options) {
-      this.url = options?.url ?? this.autoUrl();
-      this.maxReconnectAttempts = options?.maxReconnectAttempts ?? Infinity;
-      this.connect();
-    }
-    get connected() {
-      return this._connected;
-    }
-    get clientId() {
-      return this._clientId;
-    }
-    subscribe(channel) {
-      const existing = this.subscriptions.get(channel);
-      if (existing)
-        return existing;
-      const sub = new Subscription(channel, (msg) => this.send(msg), () => this.subscriptions.delete(channel));
-      this.subscriptions.set(channel, sub);
-      if (this._connected) {
-        this.rawSend({ t: "sub", c: channel });
-      }
-      return sub;
-    }
-    on(event, callback) {
-      let set = this.listeners.get(event);
-      if (!set) {
-        set = new Set;
-        this.listeners.set(event, set);
-      }
-      set.add(callback);
-      return () => {
-        set.delete(callback);
-      };
-    }
-    close() {
-      this.reconnectAttempt = Infinity;
-      if (this.reconnectTimer)
-        clearTimeout(this.reconnectTimer);
-      this.ws?.close();
-      this.ws = null;
-    }
-    autoUrl() {
-      const proto = location.protocol === "https:" ? "wss:" : "ws:";
-      return `${proto}//${location.host}/_broadcast`;
-    }
-    connect() {
-      this.ws = new WebSocket(this.url);
-      this.ws.onopen = () => {
-        this._connected = true;
-        this.reconnectAttempt = 0;
-        this.emit("connected");
-      };
-      this.ws.onmessage = (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          this.handleMessage(msg);
-        } catch {}
-      };
-      this.ws.onclose = () => {
-        const wasConnected = this._connected;
-        this._connected = false;
-        if (wasConnected)
-          this.emit("disconnected");
-        this.scheduleReconnect();
-      };
-      this.ws.onerror = () => {
-        this.ws?.close();
-      };
-    }
-    handleMessage(msg) {
-      switch (msg.t) {
-        case "welcome":
-          this._clientId = msg.id;
-          for (const channel of this.subscriptions.keys()) {
-            this.rawSend({ t: "sub", c: channel });
-          }
-          for (const raw of this.queue) {
-            this.ws.send(raw);
-          }
-          this.queue = [];
-          break;
-        case "ok":
-          this.emit("subscribed", msg.c);
-          break;
-        case "err":
-          this.emit("error", { channel: msg.c, reason: msg.r });
-          break;
-        case "msg":
-          this.subscriptions.get(msg.c)?._dispatch(msg.e, msg.d);
-          break;
-        case "ping":
-          this.rawSend({ t: "pong" });
-          break;
-      }
-    }
-    send(msg) {
-      const raw = JSON.stringify(msg);
-      if (this._connected && this.ws?.readyState === WebSocket.OPEN) {
-        this.ws.send(raw);
-      } else {
-        this.queue.push(raw);
-      }
-    }
-    rawSend(msg) {
-      if (this.ws?.readyState === WebSocket.OPEN) {
-        this.ws.send(JSON.stringify(msg));
-      }
-    }
-    scheduleReconnect() {
-      if (this.reconnectAttempt >= this.maxReconnectAttempts)
-        return;
-      this.reconnectAttempt++;
-      const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempt - 1), 30000);
-      this.emit("reconnecting", this.reconnectAttempt);
-      this.reconnectTimer = setTimeout(() => this.connect(), delay);
-    }
-    emit(event, data) {
-      const set = this.listeners.get(event);
-      if (set)
-        for (const cb of set)
-          cb(data);
-    }
-  }
+  __component__.render = render;
+  var message_header_default = __component__;
 
   // resources/islands/stores/messageStore.ts
   var useMessageStore = defineStore("messages", () => {
@@ -13183,42 +13020,6 @@ Only state can be modified.`);
       getCurrentSessionId
     };
   }
-
-  // resources/islands/message-header.vue
-  var _hoisted_1 = { class: "actions" };
-  var message_header_default = /* @__PURE__ */ defineComponent({
-    __name: "message-header",
-    setup(__props) {
-      const messageStore = useMessageStore();
-      const { getOrCreateSessionId } = useSessionId();
-      const sessionId2 = getOrCreateSessionId();
-      const bc = new Broadcast;
-      const chat = bc.subscribe(`chat/${sessionId2}`);
-      function sendPredefinedMessage(content) {
-        if (!messageStore.currentSessionId) {
-          messageStore.initializeStore(sessionId2);
-        }
-        messageStore.sendMessage(content);
-        chat.send("send", { content });
-      }
-      return (_ctx, _cache) => {
-        return openBlock(), createElementBlock(Fragment, null, [
-          _cache[3] || (_cache[3] = createStaticVNode('<div class="message-header"><div class="photo-container"><div class="profile-photo-container"><img src="/images/liva-removebg-preview.png" alt="Liva" class="avatar"></div></div><div class=""><p class="hello">Hey there, <em>I&#39;m Liva</em></p><p>I am a software engineer with a passion for building high-quality, maintainable, clean and scalable code in PHP, Typescript, VueJS, Laravel, AdonisJS and more.</p></div></div>', 1)),
-          createBaseVNode("div", _hoisted_1, [
-            createBaseVNode("button", {
-              onClick: _cache[0] || (_cache[0] = ($event) => sendPredefinedMessage("How can I contact you?"))
-            }, "Contact"),
-            createBaseVNode("button", {
-              onClick: _cache[1] || (_cache[1] = ($event) => sendPredefinedMessage("Can you send me your resume?"))
-            }, "Resume"),
-            createBaseVNode("button", {
-              onClick: _cache[2] || (_cache[2] = ($event) => sendPredefinedMessage("Show me the list of your portfolio"))
-            }, "Portfolio")
-          ])
-        ], 64);
-      };
-    }
-  });
 
   // node_modules/marked/lib/marked.esm.js
   function M() {
@@ -15597,8 +15398,219 @@ Please report this to https://github.com/markedjs/marked.`, e) {
     };
   }
 
+  // ../../../Strav.dev/sources/strav/packages/signal/src/broadcast/client.ts
+  class Subscription {
+    channel;
+    sendFn;
+    leaveFn;
+    listeners = new Map;
+    constructor(channel, sendFn, leaveFn) {
+      this.channel = channel;
+      this.sendFn = sendFn;
+      this.leaveFn = leaveFn;
+    }
+    on(event, callback) {
+      let set = this.listeners.get(event);
+      if (!set) {
+        set = new Set;
+        this.listeners.set(event, set);
+      }
+      set.add(callback);
+      return () => {
+        set.delete(callback);
+      };
+    }
+    send(event, data) {
+      this.sendFn({ t: "msg", c: this.channel, e: event, d: data });
+    }
+    leave() {
+      this.sendFn({ t: "unsub", c: this.channel });
+      this.listeners.clear();
+      this.leaveFn();
+    }
+    _dispatch(event, data) {
+      const set = this.listeners.get(event);
+      if (set)
+        for (const cb of set)
+          cb(data);
+    }
+  }
+
+  class Broadcast {
+    ws = null;
+    url;
+    maxReconnectAttempts;
+    reconnectAttempt = 0;
+    reconnectTimer = null;
+    subscriptions = new Map;
+    listeners = new Map;
+    queue = [];
+    _connected = false;
+    _clientId = null;
+    constructor(options) {
+      this.url = options?.url ?? this.autoUrl();
+      this.maxReconnectAttempts = options?.maxReconnectAttempts ?? Infinity;
+      this.connect();
+    }
+    get connected() {
+      return this._connected;
+    }
+    get clientId() {
+      return this._clientId;
+    }
+    subscribe(channel) {
+      const existing = this.subscriptions.get(channel);
+      if (existing)
+        return existing;
+      const sub = new Subscription(channel, (msg) => this.send(msg), () => this.subscriptions.delete(channel));
+      this.subscriptions.set(channel, sub);
+      if (this._connected) {
+        this.rawSend({ t: "sub", c: channel });
+      }
+      return sub;
+    }
+    on(event, callback) {
+      let set = this.listeners.get(event);
+      if (!set) {
+        set = new Set;
+        this.listeners.set(event, set);
+      }
+      set.add(callback);
+      return () => {
+        set.delete(callback);
+      };
+    }
+    close() {
+      this.reconnectAttempt = Infinity;
+      if (this.reconnectTimer)
+        clearTimeout(this.reconnectTimer);
+      this.ws?.close();
+      this.ws = null;
+    }
+    autoUrl() {
+      const proto = location.protocol === "https:" ? "wss:" : "ws:";
+      return `${proto}//${location.host}/_broadcast`;
+    }
+    connect() {
+      this.ws = new WebSocket(this.url);
+      this.ws.onopen = () => {
+        this._connected = true;
+        this.reconnectAttempt = 0;
+        this.emit("connected");
+      };
+      this.ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          this.handleMessage(msg);
+        } catch {}
+      };
+      this.ws.onclose = () => {
+        const wasConnected = this._connected;
+        this._connected = false;
+        if (wasConnected)
+          this.emit("disconnected");
+        this.scheduleReconnect();
+      };
+      this.ws.onerror = () => {
+        this.ws?.close();
+      };
+    }
+    handleMessage(msg) {
+      switch (msg.t) {
+        case "welcome":
+          this._clientId = msg.id;
+          for (const channel of this.subscriptions.keys()) {
+            this.rawSend({ t: "sub", c: channel });
+          }
+          for (const raw of this.queue) {
+            this.ws.send(raw);
+          }
+          this.queue = [];
+          break;
+        case "ok":
+          this.emit("subscribed", msg.c);
+          break;
+        case "err":
+          this.emit("error", { channel: msg.c, reason: msg.r });
+          break;
+        case "msg":
+          this.subscriptions.get(msg.c)?._dispatch(msg.e, msg.d);
+          break;
+        case "ping":
+          this.rawSend({ t: "pong" });
+          break;
+      }
+    }
+    send(msg) {
+      const raw = JSON.stringify(msg);
+      if (this._connected && this.ws?.readyState === WebSocket.OPEN) {
+        this.ws.send(raw);
+      } else {
+        this.queue.push(raw);
+      }
+    }
+    rawSend(msg) {
+      if (this.ws?.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify(msg));
+      }
+    }
+    scheduleReconnect() {
+      if (this.reconnectAttempt >= this.maxReconnectAttempts)
+        return;
+      this.reconnectAttempt++;
+      const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempt - 1), 30000);
+      this.emit("reconnecting", this.reconnectAttempt);
+      this.reconnectTimer = setTimeout(() => this.connect(), delay);
+    }
+    emit(event, data) {
+      const set = this.listeners.get(event);
+      if (set)
+        for (const cb of set)
+          cb(data);
+    }
+  }
+
+  // resources/islands/predefined-questions.vue
+  var _hoisted_12 = { class: "predefined-questions" };
+  var predefined_questions_default = /* @__PURE__ */ defineComponent({
+    __name: "predefined-questions",
+    setup(__props) {
+      const messageStore = useMessageStore();
+      const { getOrCreateSessionId } = useSessionId();
+      const sessionId2 = getOrCreateSessionId();
+      const bc = new Broadcast;
+      const chat = bc.subscribe(`chat/${sessionId2}`);
+      function sendPredefinedMessage(content) {
+        if (!messageStore.currentSessionId) {
+          messageStore.initializeStore(sessionId2);
+        }
+        messageStore.sendMessage(content);
+        chat.send("send", { content });
+      }
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_12, [
+          createBaseVNode("span", {
+            onClick: _cache[0] || (_cache[0] = ($event) => sendPredefinedMessage("What is your tech stack?"))
+          }, "What's your tech stack?"),
+          createBaseVNode("span", {
+            onClick: _cache[1] || (_cache[1] = ($event) => sendPredefinedMessage("How can I reach you?"))
+          }, "How can I reach you?"),
+          createBaseVNode("span", {
+            onClick: _cache[2] || (_cache[2] = ($event) => sendPredefinedMessage("Can you send me your resume?"))
+          }, "Can you send me your resume?"),
+          createBaseVNode("span", {
+            onClick: _cache[3] || (_cache[3] = ($event) => sendPredefinedMessage("Tell me about your experience"))
+          }, "Tell me about your experience"),
+          createBaseVNode("span", {
+            onClick: _cache[4] || (_cache[4] = ($event) => sendPredefinedMessage("Walk me through your projects"))
+          }, "Walk me through your projects")
+        ]);
+      };
+    }
+  });
+
   // resources/islands/message-thread.vue
-  var _hoisted_12 = ["innerHTML"];
+  var _hoisted_13 = ["innerHTML"];
   var _hoisted_2 = {
     key: 0,
     class: "activity-indicator"
@@ -15632,6 +15644,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
         return openBlock(), createElementBlock("div", null, [
           createBaseVNode("div", null, [
             createVNode(message_header_default),
+            createVNode(predefined_questions_default),
             (openBlock(true), createElementBlock(Fragment, null, renderList(unref(currentMessages), (message) => {
               return openBlock(), createElementBlock("div", {
                 key: message.id,
@@ -15641,9 +15654,12 @@ Please report this to https://github.com/markedjs/marked.`, e) {
                 }])
               }, [
                 createBaseVNode("div", {
-                  class: "message",
+                  class: normalizeClass(["message", {
+                    "user-message": message.role === "user",
+                    "assistant-message": message.role === "assistant"
+                  }]),
                   innerHTML: unref(renderMarkdown)(message.content)
-                }, null, 8, _hoisted_12)
+                }, null, 10, _hoisted_13)
               ], 2);
             }), 128)),
             createCommentVNode(" Activity indicator when processing "),
@@ -15667,11 +15683,11 @@ Please report this to https://github.com/markedjs/marked.`, e) {
         b2.add(saved);
       });
       function toggleMode() {
-        const body = document.body;
-        if (!body.classList.replace("dark", "light")) {
-          body.classList.replace("light", "dark");
-        }
-        localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+        const saved = localStorage.getItem("theme") || "light";
+        const newTheme = saved === "light" ? "dark" : "light";
+        const html2 = document.documentElement;
+        html2.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
       }
       return (_ctx, _cache) => {
         return openBlock(), createElementBlock("span", {
@@ -15684,13 +15700,13 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   };
 
   // resources/islands/prompt-input.vue
-  var _hoisted_13 = ["onKeydown", "data-placeholder"];
+  var _hoisted_14 = ["onKeydown", "data-placeholder"];
   var prompt_input_default = {
     __name: "prompt-input",
     props: {
       placeholder: {
         type: String,
-        default: "Ask me ..."
+        default: "Ask me anything..."
       }
     },
     setup(__props) {
@@ -15745,7 +15761,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
           onFocus: handleFocus,
           onBlur: handleBlur,
           "data-placeholder": __props.placeholder
-        }, null, 40, _hoisted_13);
+        }, null, 40, _hoisted_14);
       };
     }
   };
@@ -15755,6 +15771,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
     "message-header": message_header_default,
     "message-thread": message_thread_default,
     "navbar/mode-selector": mode_selector_default,
+    "predefined-questions": predefined_questions_default,
     "prompt-input": prompt_input_default
   };
   function mountIslands() {

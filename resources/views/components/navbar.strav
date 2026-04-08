@@ -1,6 +1,9 @@
 <div class="navbar">
   <div class="container">
-    <span class="logo">liva Ramarolahy</span>
+    <div class="image-profile-container">
+      <img src="/images/liva-removebg-preview.png" alt="logo" class="logo">
+    </div>
+    <span class="name">liva Ramarolahy</span>
     <div class="spacer"></div>
     <ul>
       <li>

@@ -14,10 +14,10 @@ onMounted(() => {
 })
 
 function toggleMode() {
-  const body = document.body
-  if (!body.classList.replace('dark', 'light')) {
-    body.classList.replace('light', 'dark')
-  }
-  localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light')
+  const saved = localStorage.getItem('theme') || 'light'
+  const newTheme = (saved === 'light') ? 'dark' : 'light'
+  const html = document.documentElement
+  html.setAttribute('data-theme', newTheme)
+  localStorage.setItem('theme', newTheme)
 }
 </script>

@@ -59,11 +59,15 @@
       color: var(--color-red-600);
     }
   }
-  .actions {
+  .predefined-questions {
+    border-bottom: 1px dashed var(--color-gray-200);
     button {
-      background-color: var(--color-gray-100);
-      border: 1px solid var(--color-gray-200);
+      background-color: white;
+      border: 1px dashed var(--color-gray-200);
       color: var(--color-gray-600);
+      &:hover {
+        background-color: var(--color-gray-100);
+      }
     }
   }
 }

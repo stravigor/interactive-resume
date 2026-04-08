@@ -2,6 +2,7 @@
   <div>
     <div>
       <MessageHeader/>
+      <PredefinedQuestions/>
       <div
         v-for="message in currentMessages"
         :key="message.id"
@@ -11,7 +12,10 @@
           'assistant-message': message.role === 'assistant'
         }"
       >
-        <div class="message" v-html="renderMarkdown(message.content)">
+        <div class="message" :class="{
+          'user-message': message.role === 'user',
+          'assistant-message': message.role === 'assistant'
+        }" v-html="renderMarkdown(message.content)">
         </div>
       </div>
       <!-- Activity indicator when processing -->
@@ -33,6 +37,7 @@ import { useMessageStore } from './stores/messageStore'
 import { useSessionId } from './composables/useSessionId'
 import { useMarkdown } from './composables/useMarkdown'
 import MessageHeader from './message-header.vue'
+import PredefinedQuestions from './predefined-questions.vue'
 
 const messageStore = useMessageStore()
 const { getOrCreateSessionId } = useSessionId()

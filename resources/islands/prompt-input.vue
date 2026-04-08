@@ -20,7 +20,7 @@ import { useSessionId } from './composables/useSessionId'
 const props = defineProps({
   placeholder: {
     type: String,
-    default: 'Ask me ...'
+    default: 'Ask me anything...'
   },
 })
 
