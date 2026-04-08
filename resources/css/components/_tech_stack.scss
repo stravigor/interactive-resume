@@ -1,0 +1,80 @@
+.tech-stack-bubble {
+  background: var(--bot-bg);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 600px;
+
+  .bubble-header {
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--bot-text);
+    }
+  }
+
+  .tech-stack-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tech-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tech-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+  }
+
+  .tech-name {
+    font-weight: 500;
+    color: var(--bot-text);
+  }
+
+  .tech-percentage {
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 1s ease-out;
+    animation: slideIn 1s ease-out;
+    background-color: var(--progress-fill);
+  }
+
+  .bubble-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--bot-text);
+      line-height: 1.5;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      width: 0;
+    }
+  }
+}

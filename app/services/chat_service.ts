@@ -2,6 +2,7 @@ import { inject } from '@strav/kernel'
 import { query } from "@strav/database"
 import { Conversation, Message } from "../models/public"
 import AIService from "./ai_service"
+import { MessageMetadata } from '../types/responses'
 
 @inject
 export default  class ChatService {
@@ -25,11 +26,11 @@ export default  class ChatService {
         })
     }
 
-    // Get messages
+    // Get messages with metadata
     const messages = await query(Message)
         .where('conversationId', conversation.id)
         .orderBy('createdAt', 'asc')
-        .select('role', 'content', 'createdAt')
+        .select('role', 'content', 'metadata', 'createdAt')
         .all()
 
     return messages
@@ -56,16 +57,30 @@ export default  class ChatService {
 
     const aiResponse = await this.aiService.generateResponse(content, conversation.id, sessionId)
 
-    // Save assistant message
+    // Create metadata object based on AI response
+    const metadata: MessageMetadata = {
+      responseType: aiResponse.type,
+      structuredData: aiResponse.data || undefined
+    }
+
+    // For structured responses, use minimal text content since the rich component will show the data
+    // For text responses, use the AI's text content directly
+    const messageContent = aiResponse.type === 'text'
+      ? aiResponse.text || 'I\'m processing your request...'
+      : '' // Empty content for structured responses - the rich component will handle display
+
+    // Save assistant message with metadata
     await Message.create({
       conversation_id: conversation.id,
       role: 'assistant',
-      content: aiResponse
+      content: messageContent,
+      metadata: JSON.stringify(metadata)
     })
 
     return {
       role: 'assistant',
-      content: aiResponse
+      content: messageContent,
+      metadata
     }
   }
 }

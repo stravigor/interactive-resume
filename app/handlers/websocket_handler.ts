@@ -21,10 +21,11 @@ export default class WebSocketHandler {
       // Generate AI response
       const response = await this.chatService.generateResponse(sessionId, content)
 
-      // Broadcast response back to the client
+      // Broadcast response back to the client with metadata
       broadcast.to(`chat/${sessionId}`).send('message', {
         role: 'assistant',
-        content: response.content
+        content: response.content,
+        metadata: response.metadata
       })
     } catch (error) {
       // Broadcast error message to the client

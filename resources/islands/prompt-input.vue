@@ -33,9 +33,9 @@ const chat = bc.subscribe(`chat/${sessionId}`)
 
 // Listen for messages from the server and update the store
 chat.on('message', (data) => {
-  // Add assistant message to the store
+  // Add assistant message to the store with metadata if present
   if (data.role === 'assistant') {
-    messageStore.addAssistantMessage(data.content)
+    messageStore.addAssistantMessage(data.content, false, data.metadata)
   }
 })
 

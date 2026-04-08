@@ -12834,11 +12834,324 @@ Only state can be modified.`);
     app.use(pinia);
   };
 
+  // resources/islands/components/ContactCard.vue
+  var _hoisted_1 = { class: "contact-card" };
+  var _hoisted_2 = {
+    key: 0,
+    class: "card-header"
+  };
+  var _hoisted_3 = { class: "contact-container" };
+  var _hoisted_4 = {
+    key: 0,
+    class: "contact-item"
+  };
+  var _hoisted_5 = { class: "contact-info" };
+  var _hoisted_6 = ["href"];
+  var _hoisted_7 = {
+    key: 1,
+    class: "contact-item"
+  };
+  var _hoisted_8 = { class: "contact-info" };
+  var _hoisted_9 = ["href"];
+  var _hoisted_10 = {
+    key: 2,
+    class: "contact-item"
+  };
+  var _hoisted_11 = { class: "contact-info" };
+  var _hoisted_12 = ["href"];
+  var _hoisted_13 = {
+    key: 3,
+    class: "contact-item"
+  };
+  var _hoisted_14 = { class: "contact-info" };
+  var _hoisted_15 = ["href"];
+  var _hoisted_16 = {
+    key: 4,
+    class: "contact-item"
+  };
+  var _hoisted_17 = { class: "contact-info" };
+  var _hoisted_18 = { class: "contact-value" };
+  var ContactCard_default = /* @__PURE__ */ defineComponent({
+    __name: "ContactCard",
+    props: {
+      data: { type: null, required: true }
+    },
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_1, [
+          __props.data.title ? (openBlock(), createElementBlock("div", _hoisted_2, [
+            createBaseVNode("h3", null, toDisplayString(__props.data.title), 1)
+          ])) : createCommentVNode("v-if", true),
+          createBaseVNode("div", _hoisted_3, [
+            __props.data.email ? (openBlock(), createElementBlock("div", _hoisted_4, [
+              createBaseVNode("div", _hoisted_5, [
+                _cache[0] || (_cache[0] = createBaseVNode("span", { class: "contact-label" }, "EMAIL", -1)),
+                createBaseVNode("a", {
+                  href: `mailto:${__props.data.email}`,
+                  class: "contact-value"
+                }, toDisplayString(__props.data.email), 9, _hoisted_6)
+              ])
+            ])) : createCommentVNode("v-if", true),
+            __props.data.phone ? (openBlock(), createElementBlock("div", _hoisted_7, [
+              createBaseVNode("div", _hoisted_8, [
+                _cache[1] || (_cache[1] = createBaseVNode("span", { class: "contact-label" }, "PHONE", -1)),
+                createBaseVNode("a", {
+                  href: `tel:${__props.data.phone}`,
+                  class: "contact-value"
+                }, toDisplayString(__props.data.phone), 9, _hoisted_9)
+              ])
+            ])) : createCommentVNode("v-if", true),
+            __props.data.linkedin ? (openBlock(), createElementBlock("div", _hoisted_10, [
+              createBaseVNode("div", _hoisted_11, [
+                _cache[2] || (_cache[2] = createBaseVNode("span", { class: "contact-label" }, "LINKEDIN", -1)),
+                createBaseVNode("a", {
+                  href: `https://${__props.data.linkedin}`,
+                  target: "_blank",
+                  class: "contact-value"
+                }, toDisplayString(__props.data.linkedin), 9, _hoisted_12)
+              ])
+            ])) : createCommentVNode("v-if", true),
+            __props.data.github ? (openBlock(), createElementBlock("div", _hoisted_13, [
+              createBaseVNode("div", _hoisted_14, [
+                _cache[3] || (_cache[3] = createBaseVNode("span", { class: "contact-label" }, "GITHUB", -1)),
+                createBaseVNode("a", {
+                  href: `https://${__props.data.github}`,
+                  target: "_blank",
+                  class: "contact-value"
+                }, toDisplayString(__props.data.github), 9, _hoisted_15)
+              ])
+            ])) : createCommentVNode("v-if", true),
+            __props.data.location ? (openBlock(), createElementBlock("div", _hoisted_16, [
+              createBaseVNode("div", _hoisted_17, [
+                _cache[4] || (_cache[4] = createBaseVNode("span", { class: "contact-label" }, "LOCATION", -1)),
+                createBaseVNode("span", _hoisted_18, toDisplayString(__props.data.location), 1)
+              ])
+            ])) : createCommentVNode("v-if", true)
+          ])
+        ]);
+      };
+    }
+  });
+
+  // resources/islands/components/ExperienceTimeline.vue
+  var _hoisted_19 = { class: "experience-timeline" };
+  var _hoisted_22 = {
+    key: 0,
+    class: "timeline-header"
+  };
+  var _hoisted_32 = { class: "timeline-items" };
+  var _hoisted_42 = { class: "timeline-content" };
+  var _hoisted_52 = { class: "period" };
+  var _hoisted_62 = { class: "title" };
+  var _hoisted_72 = { class: "company" };
+  var _hoisted_82 = { class: "description" };
+  var _hoisted_92 = {
+    key: 0,
+    class: "highlights"
+  };
+  var ExperienceTimeline_default = /* @__PURE__ */ defineComponent({
+    __name: "ExperienceTimeline",
+    props: {
+      data: { type: null, required: true }
+    },
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_19, [
+          __props.data.title ? (openBlock(), createElementBlock("div", _hoisted_22, [
+            createBaseVNode("h3", null, toDisplayString(__props.data.title), 1)
+          ])) : createCommentVNode("v-if", true),
+          createBaseVNode("div", _hoisted_32, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(__props.data.items, (item, index) => {
+              return openBlock(), createElementBlock("div", {
+                key: index,
+                class: normalizeClass(["timeline-item", { current: item.current }])
+              }, [
+                _cache[0] || (_cache[0] = createBaseVNode("div", { class: "timeline-marker" }, [
+                  createBaseVNode("div", { class: "marker-dot" })
+                ], -1)),
+                createBaseVNode("div", _hoisted_42, [
+                  createBaseVNode("div", _hoisted_52, toDisplayString(item.period), 1),
+                  createBaseVNode("div", _hoisted_62, toDisplayString(item.title), 1),
+                  createBaseVNode("div", _hoisted_72, toDisplayString(item.company), 1),
+                  createBaseVNode("div", _hoisted_82, toDisplayString(item.description), 1),
+                  item.highlights ? (openBlock(), createElementBlock("div", _hoisted_92, [
+                    (openBlock(true), createElementBlock(Fragment, null, renderList(item.highlights, (highlight2, hIndex) => {
+                      return openBlock(), createElementBlock("span", { key: hIndex }, toDisplayString(highlight2), 1);
+                    }), 128))
+                  ])) : createCommentVNode("v-if", true)
+                ])
+              ], 2);
+            }), 128))
+          ])
+        ]);
+      };
+    }
+  });
+
+  // resources/islands/components/MethodologyGrid.vue
+  var _hoisted_111 = { class: "methodology-grid" };
+  var _hoisted_23 = {
+    key: 0,
+    class: "grid-header"
+  };
+  var _hoisted_33 = { key: 0 };
+  var _hoisted_43 = { class: "methodology-container" };
+  var _hoisted_53 = { class: "item-content" };
+  var _hoisted_63 = { class: "item-title" };
+  var _hoisted_73 = {
+    key: 0,
+    class: "item-subtitle"
+  };
+  var MethodologyGrid_default = /* @__PURE__ */ defineComponent({
+    __name: "MethodologyGrid",
+    props: {
+      data: { type: null, required: true }
+    },
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_111, [
+          __props.data.title ? (openBlock(), createElementBlock("div", _hoisted_23, [
+            createBaseVNode("h3", null, toDisplayString(__props.data.title), 1),
+            __props.data.subtitle ? (openBlock(), createElementBlock("p", _hoisted_33, toDisplayString(__props.data.subtitle), 1)) : createCommentVNode("v-if", true)
+          ])) : createCommentVNode("v-if", true),
+          createBaseVNode("div", _hoisted_43, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(__props.data.items, (item, index) => {
+              return openBlock(), createElementBlock("div", {
+                key: index,
+                class: "methodology-item"
+              }, [
+                createBaseVNode("div", _hoisted_53, [
+                  createBaseVNode("div", _hoisted_63, toDisplayString(item.title), 1),
+                  item.subtitle ? (openBlock(), createElementBlock("div", _hoisted_73, toDisplayString(item.subtitle), 1)) : createCommentVNode("v-if", true)
+                ])
+              ]);
+            }), 128))
+          ])
+        ]);
+      };
+    }
+  });
+
+  // resources/islands/components/ProjectCards.vue
+  var _hoisted_112 = { class: "project-cards" };
+  var _hoisted_24 = {
+    key: 0,
+    class: "cards-header"
+  };
+  var _hoisted_34 = { key: 0 };
+  var _hoisted_44 = { class: "cards-container" };
+  var _hoisted_54 = { class: "card-header" };
+  var _hoisted_64 = { class: "project-icon" };
+  var _hoisted_74 = { class: "icon-fallback" };
+  var _hoisted_83 = { class: "project-name" };
+  var _hoisted_93 = { class: "project-description" };
+  var _hoisted_102 = { class: "project-tech" };
+  var _hoisted_113 = ["href"];
+  var ProjectCards_default = /* @__PURE__ */ defineComponent({
+    __name: "ProjectCards",
+    props: {
+      data: { type: null, required: true }
+    },
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_112, [
+          __props.data.title ? (openBlock(), createElementBlock("div", _hoisted_24, [
+            createBaseVNode("h3", null, toDisplayString(__props.data.title), 1),
+            __props.data.subtitle ? (openBlock(), createElementBlock("p", _hoisted_34, toDisplayString(__props.data.subtitle), 1)) : createCommentVNode("v-if", true)
+          ])) : createCommentVNode("v-if", true),
+          createBaseVNode("div", _hoisted_44, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(__props.data.projects, (project, index) => {
+              return openBlock(), createElementBlock("div", {
+                key: index,
+                class: normalizeClass(["project-card", { featured: project.featured }])
+              }, [
+                createBaseVNode("div", _hoisted_54, [
+                  createBaseVNode("div", _hoisted_64, [
+                    createBaseVNode("span", _hoisted_74, toDisplayString(project.name.charAt(0).toUpperCase()), 1)
+                  ]),
+                  createBaseVNode("div", _hoisted_83, toDisplayString(project.name), 1)
+                ]),
+                createBaseVNode("div", _hoisted_93, toDisplayString(project.description), 1),
+                createBaseVNode("div", _hoisted_102, [
+                  (openBlock(true), createElementBlock(Fragment, null, renderList(project.techStack, (tech, techIndex) => {
+                    return openBlock(), createElementBlock("span", {
+                      key: techIndex,
+                      class: "tech-tag"
+                    }, toDisplayString(tech), 1);
+                  }), 128))
+                ]),
+                project.url ? (openBlock(), createElementBlock("a", {
+                  key: 0,
+                  href: project.url,
+                  target: "_blank",
+                  class: "project-link"
+                }, " View Project → ", 8, _hoisted_113)) : createCommentVNode("v-if", true)
+              ], 2);
+            }), 128))
+          ])
+        ]);
+      };
+    }
+  });
+
+  // resources/islands/components/TechStackBubble.vue
+  var _hoisted_114 = { class: "tech-stack-bubble" };
+  var _hoisted_25 = {
+    key: 0,
+    class: "bubble-header"
+  };
+  var _hoisted_35 = { class: "tech-stack-items" };
+  var _hoisted_45 = { class: "tech-info" };
+  var _hoisted_55 = { class: "tech-name" };
+  var _hoisted_65 = { class: "tech-percentage" };
+  var _hoisted_75 = { class: "progress-bar" };
+  var _hoisted_84 = {
+    key: 1,
+    class: "bubble-footer"
+  };
+  var TechStackBubble_default = /* @__PURE__ */ defineComponent({
+    __name: "TechStackBubble",
+    props: {
+      data: { type: null, required: true }
+    },
+    setup(__props) {
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_114, [
+          __props.data.title ? (openBlock(), createElementBlock("div", _hoisted_25, [
+            createBaseVNode("h3", null, toDisplayString(__props.data.title), 1)
+          ])) : createCommentVNode("v-if", true),
+          createBaseVNode("div", _hoisted_35, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(__props.data.items, (item, index) => {
+              return openBlock(), createElementBlock("div", {
+                key: index,
+                class: "tech-item"
+              }, [
+                createBaseVNode("div", _hoisted_45, [
+                  createBaseVNode("span", _hoisted_55, toDisplayString(item.name), 1),
+                  createBaseVNode("span", _hoisted_65, toDisplayString(item.proficiency) + "%", 1)
+                ]),
+                createBaseVNode("div", _hoisted_75, [
+                  createBaseVNode("div", {
+                    class: normalizeClass(["progress-fill", `progress-${item.color || "primary"}`]),
+                    style: normalizeStyle({ width: `${item.proficiency}%` })
+                  }, null, 6)
+                ])
+              ]);
+            }), 128))
+          ]),
+          __props.data.footer ? (openBlock(), createElementBlock("div", _hoisted_84, [
+            createBaseVNode("p", null, toDisplayString(__props.data.footer), 1)
+          ])) : createCommentVNode("v-if", true)
+        ]);
+      };
+    }
+  });
+
   // resources/islands/message-header.vue
   var __component__ = {};
-  var _hoisted_1 = { class: "message-container" };
+  var _hoisted_116 = { class: "message-container" };
   function render(_ctx, _cache) {
-    return openBlock(), createElementBlock("div", _hoisted_1, [..._cache[0] || (_cache[0] = [
+    return openBlock(), createElementBlock("div", _hoisted_116, [..._cache[0] || (_cache[0] = [
       createBaseVNode("div", { class: "message assistant-message" }, [
         createBaseVNode("p", null, "Hi! I'm Liva, a software engineer who builds clean, scalable web applications."),
         createBaseVNode("p", null, "Ask me anything, or pick a question below to get started.")
@@ -12876,14 +13189,25 @@ Only state can be modified.`);
         }
         const data = await response.json();
         if (Array.isArray(data)) {
-          messages.value = data.map((msg, index) => ({
-            id: `history_${index}`,
-            conversation_id: "",
-            role: msg.role,
-            content: msg.content,
-            created_at: msg.createdAt || msg.created_at || new Date().toISOString(),
-            updated_at: msg.createdAt || msg.created_at || new Date().toISOString()
-          }));
+          messages.value = data.map((msg, index) => {
+            let metadata = undefined;
+            if (msg.metadata) {
+              try {
+                metadata = typeof msg.metadata === "string" ? JSON.parse(msg.metadata) : msg.metadata;
+              } catch (error2) {
+                console.warn("Failed to parse message metadata:", error2);
+              }
+            }
+            return {
+              id: `history_${index}`,
+              conversation_id: "",
+              role: msg.role,
+              content: msg.content,
+              metadata,
+              created_at: msg.createdAt || msg.created_at || new Date().toISOString(),
+              updated_at: msg.createdAt || msg.created_at || new Date().toISOString()
+            };
+          });
         }
       } catch (err) {
         error.value = err instanceof Error ? err.message : "Failed to fetch messages";
@@ -12913,13 +13237,14 @@ Only state can be modified.`);
       addMessage(userMessage);
       return tempId;
     }
-    function addAssistantMessage(content, isTyping = false) {
+    function addAssistantMessage(content, isTyping = false, metadata) {
       const tempId = `assistant_${Date.now()}`;
       const assistantMessage = {
         id: tempId,
         conversation_id: conversation.value?.id || "",
         role: "assistant",
         content,
+        metadata,
         is_typing: isTyping,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
@@ -15571,7 +15896,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   }
 
   // resources/islands/predefined-questions.vue
-  var _hoisted_12 = { class: "predefined-questions" };
+  var _hoisted_117 = { class: "predefined-questions" };
   var predefined_questions_default = /* @__PURE__ */ defineComponent({
     __name: "predefined-questions",
     setup(__props) {
@@ -15588,7 +15913,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
         chat.send("send", { content });
       }
       return (_ctx, _cache) => {
-        return openBlock(), createElementBlock("div", _hoisted_12, [
+        return openBlock(), createElementBlock("div", _hoisted_117, [
           createBaseVNode("span", {
             onClick: _cache[0] || (_cache[0] = ($event) => sendPredefinedMessage("What is your tech stack?"))
           }, "What's your tech stack?"),
@@ -15610,12 +15935,13 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   });
 
   // resources/islands/message-thread.vue
-  var _hoisted_13 = ["innerHTML"];
-  var _hoisted_2 = {
+  var _hoisted_118 = ["innerHTML"];
+  var _hoisted_26 = ["innerHTML"];
+  var _hoisted_36 = {
     key: 0,
     class: "activity-indicator"
   };
-  var _hoisted_3 = { key: 0 };
+  var _hoisted_46 = { key: 0 };
   var message_thread_default = /* @__PURE__ */ defineComponent({
     __name: "message-thread",
     setup(__props) {
@@ -15653,19 +15979,51 @@ Please report this to https://github.com/markedjs/marked.`, e) {
                   "assistant-message": message.role === "assistant"
                 }])
               }, [
-                createBaseVNode("div", {
-                  class: normalizeClass(["message", {
-                    "user-message": message.role === "user",
-                    "assistant-message": message.role === "assistant"
-                  }]),
+                createCommentVNode(" User messages always use standard bubble "),
+                message.role === "user" ? (openBlock(), createElementBlock("div", {
+                  key: 0,
+                  class: "message user-message",
                   innerHTML: unref(renderMarkdown)(message.content)
-                }, null, 10, _hoisted_13)
+                }, null, 8, _hoisted_118)) : message.role === "assistant" ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+                  createCommentVNode(" Assistant messages can be rich or standard "),
+                  createCommentVNode(" Tech Stack Response "),
+                  message.metadata?.responseType === "tech_stack" && message.metadata?.structuredData ? (openBlock(), createBlock(TechStackBubble_default, {
+                    key: 0,
+                    data: message.metadata.structuredData
+                  }, null, 8, ["data"])) : message.metadata?.responseType === "experience" && message.metadata?.structuredData ? (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+                    createCommentVNode(" Experience Timeline Response "),
+                    createVNode(ExperienceTimeline_default, {
+                      data: message.metadata.structuredData
+                    }, null, 8, ["data"])
+                  ], 2112)) : message.metadata?.responseType === "projects" && message.metadata?.structuredData ? (openBlock(), createElementBlock(Fragment, { key: 2 }, [
+                    createCommentVNode(" Projects Cards Response "),
+                    createVNode(ProjectCards_default, {
+                      data: message.metadata.structuredData
+                    }, null, 8, ["data"])
+                  ], 2112)) : message.metadata?.responseType === "contact" && message.metadata?.structuredData ? (openBlock(), createElementBlock(Fragment, { key: 3 }, [
+                    createCommentVNode(" Contact Card Response "),
+                    createVNode(ContactCard_default, {
+                      data: message.metadata.structuredData
+                    }, null, 8, ["data"])
+                  ], 2112)) : message.metadata?.responseType === "methodology" && message.metadata?.structuredData ? (openBlock(), createElementBlock(Fragment, { key: 4 }, [
+                    createCommentVNode(" Methodology Grid Response "),
+                    createVNode(MethodologyGrid_default, {
+                      data: message.metadata.structuredData
+                    }, null, 8, ["data"])
+                  ], 2112)) : (openBlock(), createElementBlock(Fragment, { key: 5 }, [
+                    createCommentVNode(" Fallback to standard message bubble "),
+                    createBaseVNode("div", {
+                      class: "message assistant-message",
+                      innerHTML: unref(renderMarkdown)(message.content)
+                    }, null, 8, _hoisted_26)
+                  ], 2112))
+                ], 64)) : createCommentVNode("v-if", true)
               ], 2);
             }), 128)),
             createCommentVNode(" Activity indicator when processing "),
-            unref(isPending) ? (openBlock(), createElementBlock("div", _hoisted_2, " Processing... ")) : createCommentVNode("v-if", true)
+            unref(isPending) ? (openBlock(), createElementBlock("div", _hoisted_36, " Processing... ")) : createCommentVNode("v-if", true)
           ]),
-          unref(error) ? (openBlock(), createElementBlock("div", _hoisted_3, toDisplayString(unref(error)), 1)) : createCommentVNode("v-if", true)
+          unref(error) ? (openBlock(), createElementBlock("div", _hoisted_46, toDisplayString(unref(error)), 1)) : createCommentVNode("v-if", true)
         ]);
       };
     }
@@ -15700,7 +16058,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   };
 
   // resources/islands/prompt-input.vue
-  var _hoisted_14 = ["onKeydown", "data-placeholder"];
+  var _hoisted_119 = ["onKeydown", "data-placeholder"];
   var prompt_input_default = {
     __name: "prompt-input",
     props: {
@@ -15718,7 +16076,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
       const chat = bc.subscribe(`chat/${sessionId2}`);
       chat.on("message", (data) => {
         if (data.role === "assistant") {
-          messageStore.addAssistantMessage(data.content);
+          messageStore.addAssistantMessage(data.content, false, data.metadata);
         }
       });
       const editableDiv = ref(null);
@@ -15761,13 +16119,18 @@ Please report this to https://github.com/markedjs/marked.`, e) {
           onFocus: handleFocus,
           onBlur: handleBlur,
           "data-placeholder": __props.placeholder
-        }, null, 40, _hoisted_14);
+        }, null, 40, _hoisted_119);
       };
     }
   };
 
   // island-entry:virtual:islands-entry
   var components = {
+    "components/ContactCard": ContactCard_default,
+    "components/ExperienceTimeline": ExperienceTimeline_default,
+    "components/MethodologyGrid": MethodologyGrid_default,
+    "components/ProjectCards": ProjectCards_default,
+    "components/TechStackBubble": TechStackBubble_default,
     "message-header": message_header_default,
     "message-thread": message_thread_default,
     "navbar/mode-selector": mode_selector_default,

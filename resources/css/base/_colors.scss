@@ -10,8 +10,7 @@
   --user-bg:#1a1a1a;
   --user-text:#FAFAF8;
   --input-bg:#fff;
-  --radius:22px;
-  --font:'Outfit',sans-serif;
+  --progress-fill: #5E9ED6;
 }
 [data-theme="dark"]{
   --bg:#131313;
@@ -24,4 +23,5 @@
   --user-bg:#E07A5F;
   --user-text:#fff;
   --input-bg:#1a1a1a;
+  --progress-fill: #6BA7E5;
 }

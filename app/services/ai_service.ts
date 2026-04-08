@@ -6,6 +6,7 @@ import { query } from '@strav/database'
 import { Message } from '../models/public'
 import { env } from '@strav/kernel/helpers/env'
 import { sendResumeTool } from '../tools/send_resume_tool'
+import { StructuredResponse } from '../types/responses'
 
 /**
  * Resume Assistant Agent
@@ -38,9 +39,39 @@ export default class AIService {
   }
 
   /**
+   * Parse JSON response from AI
+   */
+  private parseAIResponse(response: string): StructuredResponse {
+    try {
+      // Try to parse as JSON
+      const parsed = JSON.parse(response)
+
+      // Validate the structure
+      if (!parsed.type || parsed.content === undefined) {
+        throw new Error('Invalid response structure')
+      }
+
+      return {
+        type: parsed.type,
+        data: parsed.type !== 'text' ? parsed.content : null,
+        text: parsed.type === 'text' ? parsed.content : ''
+      }
+    } catch (error) {
+      console.error('Failed to parse AI JSON response:', error, 'Response:', response)
+
+      // Fallback to text response if JSON parsing fails
+      return {
+        type: 'text',
+        data: null,
+        text: response || 'I apologize, but I encountered an error processing your request.'
+      }
+    }
+  }
+
+  /**
    * Generate a response using Strav Brain
    */
-  async generateResponse(userMessage: string, conversationId: string, sessionId?: string): Promise<string> {
+  async generateResponse(userMessage: string, conversationId: string, sessionId?: string): Promise<StructuredResponse> {
     try {
       // Get conversation history
       const previousMessages = await query(Message)
@@ -67,7 +98,7 @@ export default class AIService {
         }
       }
 
-      // Prepare context for the agent (markdown is already formatted)
+      // Prepare context with actual markdown data
       const context = {
         profile: this.profileData,
         projects: this.projectsData,
@@ -87,11 +118,10 @@ export default class AIService {
         .with(enhancedContext)
         .run()
 
-      // Use the AI's text response which should include the tool execution context
+      // Get the AI's response
       const responseContent = result.text || (typeof result.data === 'string' ? result.data : '')
 
       if (!responseContent || responseContent.trim() === '') {
-
         console.warn('Empty response from AI, using direct chat')
         console.warn(result)
 
@@ -108,22 +138,27 @@ export default class AIService {
           maxTokens: 500
         })
 
-        return directResponse || this.getFallbackResponse(userMessage)
+        // Parse the response as JSON
+        return this.parseAIResponse(directResponse || '')
       }
 
-      return responseContent
+      // Parse the AI's JSON response
+      return this.parseAIResponse(responseContent)
 
     } catch (error) {
       console.error('Brain API error:', error)
 
       // Fallback response if AI fails
-      return this.getFallbackResponse(userMessage)
+      return {
+        type: 'text',
+        data: null,
+        text: this.getFallbackResponse(userMessage)
+      }
     }
   }
 
-
   /**
-   * Provide a fallback response if AI fails
+   * Provide a fallback response if AI fails or returns invalid JSON
    */
   private getFallbackResponse(message: string): string {
     const msg = message.toLowerCase()

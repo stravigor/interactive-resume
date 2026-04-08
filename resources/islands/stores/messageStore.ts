@@ -61,14 +61,27 @@ export const useMessageStore = defineStore('messages', () => {
 
       // The API returns an array of messages directly
       if (Array.isArray(data)) {
-        messages.value = data.map((msg: any, index: number) => ({
-          id: `history_${index}`,
-          conversation_id: '', // Will be set when conversation is created
-          role: msg.role,
-          content: msg.content,
-          created_at: msg.createdAt || msg.created_at || new Date().toISOString(),
-          updated_at: msg.createdAt || msg.created_at || new Date().toISOString()
-        }))
+        messages.value = data.map((msg: any, index: number) => {
+          // Parse metadata if it exists and is a string
+          let metadata = undefined
+          if (msg.metadata) {
+            try {
+              metadata = typeof msg.metadata === 'string' ? JSON.parse(msg.metadata) : msg.metadata
+            } catch (error) {
+              console.warn('Failed to parse message metadata:', error)
+            }
+          }
+
+          return {
+            id: `history_${index}`,
+            conversation_id: '', // Will be set when conversation is created
+            role: msg.role,
+            content: msg.content,
+            metadata,
+            created_at: msg.createdAt || msg.created_at || new Date().toISOString(),
+            updated_at: msg.createdAt || msg.created_at || new Date().toISOString()
+          }
+        })
       }
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to fetch messages'
@@ -103,13 +116,14 @@ export const useMessageStore = defineStore('messages', () => {
     return tempId
   }
 
-  function addAssistantMessage(content: string, isTyping = false) {
+  function addAssistantMessage(content: string, isTyping = false, metadata?: Record<string, any>) {
     const tempId = `assistant_${Date.now()}`
     const assistantMessage: Message = {
       id: tempId,
       conversation_id: conversation.value?.id || '',
       role: 'assistant',
       content,
+      metadata,
       is_typing: isTyping,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
