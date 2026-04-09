@@ -19,7 +19,7 @@
       margin: 0 auto;
     }
     .header {
-      background: #ca8a04;
+      background: #E07A5F;
       color: white;
       padding: 30px;
       text-align: center;
@@ -39,7 +39,7 @@
     }
     .summary-section {
       background-color: #f7fafc;
-      border-left: 4px solid #ca8a04;
+      border-left: 4px solid #E07A5F;
       padding: 20px;
       margin: 20px 0;
       border-radius: 4px;
@@ -74,7 +74,7 @@
     }
     .btn {
       display: inline-block;
-      background: #ca8a04;
+      background: #E07A5F;
       color: white;
       padding: 12px 30px;
       text-decoration: none;
