@@ -16,7 +16,6 @@
     "@strav/kernel": "0.2.8",
     "@strav/signal": "0.2.8",
     "@strav/view": "0.2.8",
-    "@strav/workflow": "0.2.8",
     "@types/dompurify": "^3.2.0",
     "@types/marked": "^6.0.0",
     "dompurify": "^3.3.3",
