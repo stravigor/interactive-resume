@@ -24,6 +24,7 @@ class ResumeAgent extends Agent {
 export default class AIService {
   private profileData: string
   private projectsData: string
+  private methodologyData: string
   private skillsData: string
   private contactData: string
   private systemPrompt: string
@@ -33,6 +34,7 @@ export default class AIService {
     const dataPath = path.join(process.cwd(), 'data')
     this.profileData = fs.readFileSync(path.join(dataPath, 'profile.md'), 'utf-8')
     this.projectsData = fs.readFileSync(path.join(dataPath, 'projects.md'), 'utf-8')
+    this.methodologyData = fs.readFileSync(path.join(dataPath, 'methodology.md'), 'utf-8')
     this.skillsData = fs.readFileSync(path.join(dataPath, 'skills.md'), 'utf-8')
     this.contactData = fs.readFileSync(path.join(dataPath, 'contact.md'), 'utf-8')
     this.systemPrompt = fs.readFileSync(path.join(dataPath, 'system-prompt.md'), 'utf-8')
@@ -102,6 +104,7 @@ export default class AIService {
       const context = {
         profile: this.profileData,
         projects: this.projectsData,
+        methodology: this.methodologyData,
         skills: this.skillsData,
         contact: this.contactData
       }
@@ -129,6 +132,7 @@ export default class AIService {
         const systemPrompt = this.systemPrompt
           .replace('{{profile}}', this.profileData)
           .replace('{{projects}}', this.projectsData)
+          .replace('{{methodology}}', this.methodologyData)
           .replace('{{skills}}', this.skillsData)
           .replace('{{contact}}', this.contactData)
 

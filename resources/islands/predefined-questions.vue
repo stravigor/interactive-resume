@@ -5,6 +5,8 @@
   <span @click="sendPredefinedMessage('Can you send me your resume?')">Can you send me your resume?</span>
   <span @click="sendPredefinedMessage('Tell me about your experience')">Tell me about your experience</span>
   <span @click="sendPredefinedMessage('Walk me through your projects')">Walk me through your projects</span>
+  <span @click="sendPredefinedMessage('How do you lead technical teams?')">How do you lead technical teams?</span>
+  <span @click="sendPredefinedMessage('How do you approach AI collaboration?')">How do you approach AI collaboration?</span>
   </div>
 </template>
 

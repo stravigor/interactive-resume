@@ -20,6 +20,11 @@ SKILLS:
 {{skills}}
 ---------------------------------------------
 
+METHODOLOGY:
+---------------------------------------------
+{{methodology}}
+---------------------------------------------
+
 CRITICAL INSTRUCTION - JSON OUTPUT FORMAT:
 You MUST ALWAYS respond with valid JSON in the following format:
 {

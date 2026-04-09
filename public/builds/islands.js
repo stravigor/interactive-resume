@@ -16540,7 +16540,13 @@ Please report this to https://github.com/markedjs/marked.`, e) {
           }, "Tell me about your experience"),
           createBaseVNode("span", {
             onClick: _cache[4] || (_cache[4] = ($event) => sendPredefinedMessage("Walk me through your projects"))
-          }, "Walk me through your projects")
+          }, "Walk me through your projects"),
+          createBaseVNode("span", {
+            onClick: _cache[5] || (_cache[5] = ($event) => sendPredefinedMessage("How do you lead technical teams?"))
+          }, "How do you lead technical teams?"),
+          createBaseVNode("span", {
+            onClick: _cache[6] || (_cache[6] = ($event) => sendPredefinedMessage("How do you approach AI collaboration?"))
+          }, "How do you approach AI collaboration?")
         ]);
       };
     }

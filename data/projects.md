@@ -1,52 +1,5 @@
 # Projects Portfolio
 
-## Strav Framework
-**GitHub:** https://github.com/stravigor/strav
-
-### Description
-
-A full-stack TypeScript framework for Bun - aiming to be the Laravel of the TypeScript ecosystem.
-**Context:** Bun is a fast-growing JS runtime, but it lacks a cohesive full-stack framework. Existing Bun-compatible libraries like ElysiaJS and Hono cover routing but don't offer the batteries-included experience that Laravel gives PHP developers - no built-in ORM, no DI container, no real-time layer, no CLI scaffolding. Developers end up stitching together dozens of packages. Strav is designed to fill that gap.
-
-**My role:** Creator & sole architect. I designed the full system architecture - module boundaries, the DI container API, ORM query builder design, the Vue islands hydration strategy, and the CLI interface. Implementation is done collaboratively with Claude Code, which I direct and review. This project is also a case study in AI-assisted development: I focus on architecture and design decisions while delegating implementation to an AI coding agent.
-
-Key decisions:
-- **IoC container as the backbone** — everything (routes, services, WebSocket channels) registers through DI, keeping modules decoupled and testable.
-- **Vue.js islands over full SPA** — gives developers SSR performance by default with interactive islands where needed, avoiding the hydration cost of shipping a full Vue app.
-- **Laravel-inspired conventions** — familiar patterns (migrations, artisan-like CLI, broadcasting channels) so developers with Laravel experience feel at home immediately.
-
-**Tech Stack:** TypeScript, Bun, Vue.js, PostgreSQL, WebSockets
-
-### Key Features
-- IoC Container with dependency injection
-- Real-time broadcasting with channels
-- Type-safe ORM with migrations
-- Vue.js islands architecture
-- Comprehensive CLI tools
-- Built for Bun runtime
-
----
-
-## AI Resume Concierge
-
-### Description
-An AI assistant that knows everything about my professional background and can have intelligent conversations with visitors - like having a personal agent pitch me 24/7.
-
-**Context:** Traditional resumes are static documents that recruiters spend 6-10 seconds scanning before moving on. Portfolio sites fare slightly better but still require visitors to click around and piece together information themselves. I wanted to create something that would actually engage visitors in conversation, answer their specific questions, and present relevant experience in context. The goal: make learning about my background as easy as having a chat with a knowledgeable colleague.
-
-**My role:** Creator & Full-Stack Developer. Designed the entire system architecture including the AI conversation flow, structured response system for rich UI components, and real-time WebSocket infrastructure. Built this using my own Strav framework, making it both a portfolio piece and a production demonstration of Strav's capabilities. This project also showcases AI-assisted development: I architected the system while collaborating with Claude to implement features.
-
-**Key decisions:**
-- **Structured AI responses over plain text** — the AI returns typed JSON responses that trigger specific UI components (project cards, experience timeline, tech stack visualizations). This creates a richer experience than a simple chatbot while maintaining conversational flow.
-- **Vue islands architecture** — selective hydration means the page loads instantly with only the chat interface being interactive, keeping the bundle small while providing real-time features where needed.
-- **Professional concierge personality** — the AI is instructed to be knowledgeable but not salesy, helpful but not pushy. It presents information conversationally while maintaining professionalism.
-
-**Impact:** Visitors spend 5-10 minutes on average (vs. 30 seconds on typical portfolios). The AI handles complex queries like "Do you have experience with real-time systems?" or "What's your approach to technical debt?" - questions that static resumes can't answer. Most importantly, it's memorable: recruiters and clients remember "the developer with the AI resume."
-
-**Tech Stack:** TypeScript, Strav Framework, Bun, Vue.js, OpenAI API, WebSockets, SQLite
-
----
-
 ## Befeni E-commerce Platform
 
 ### Description
@@ -83,6 +36,33 @@ Factory ERP that receives custom shirt orders from the Befeni e-commerce platfor
 **Fabric analytics** - detailed dashboards breaking down fabric usage by type and component, helping the factory forecast demand and identify waste.
 
 **Tech Stack:** PHP/Laravel, MySQL, Vue.js
+
+---
+
+## Strav Framework
+**GitHub:** https://github.com/stravigor/strav
+
+### Description
+
+A full-stack TypeScript framework for Bun - aiming to be the Laravel of the TypeScript ecosystem.
+**Context:** Bun is a fast-growing JS runtime, but it lacks a cohesive full-stack framework. Existing Bun-compatible libraries like ElysiaJS and Hono cover routing but don't offer the batteries-included experience that Laravel gives PHP developers - no built-in ORM, no DI container, no real-time layer, no CLI scaffolding. Developers end up stitching together dozens of packages. Strav is designed to fill that gap.
+
+**My role:** Creator & sole architect. I designed the full system architecture - module boundaries, the DI container API, ORM query builder design, the Vue islands hydration strategy, and the CLI interface. Implementation is done collaboratively with Claude Code, which I direct and review. This project is also a case study in AI-assisted development: I focus on architecture and design decisions while delegating implementation to an AI coding agent.
+
+Key decisions:
+- **IoC container as the backbone** — everything (routes, services, WebSocket channels) registers through DI, keeping modules decoupled and testable.
+- **Vue.js islands over full SPA** — gives developers SSR performance by default with interactive islands where needed, avoiding the hydration cost of shipping a full Vue app.
+- **Laravel-inspired conventions** — familiar patterns (migrations, artisan-like CLI, broadcasting channels) so developers with Laravel experience feel at home immediately.
+
+**Tech Stack:** TypeScript, Bun, Vue.js, PostgreSQL, WebSockets
+
+### Key Features
+- IoC Container with dependency injection
+- Real-time broadcasting with channels
+- Type-safe ORM with migrations
+- Vue.js islands architecture
+- Comprehensive CLI tools
+- Built for Bun runtime
 
 ---
 
