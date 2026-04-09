@@ -1,22 +1,42 @@
+@use "../base/responsive";
+
 .methodology-grid {
   background: var(--bot-bg);
   border-radius: 12px;
   padding: 20px;
   max-width: 700px;
 
+  @include responsive.mobile {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
   .grid-header {
     margin-bottom: 24px;
+
+    @include responsive.mobile {
+      margin-bottom: 18px;
+    }
 
     h3 {
       margin: 0 0 8px 0;
       font-size: 1.1rem;
       color: var(--bot-text);
+
+      @include responsive.mobile {
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
     }
 
     p {
       margin: 0;
       color: var(--subtle);
       font-size: 0.95rem;
+
+      @include responsive.mobile {
+        font-size: 0.9rem;
+      }
     }
   }
 
@@ -24,6 +44,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 12px;
+
+    @include responsive.mobile-only {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @include responsive.tablet {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
   }
 
   .methodology-item {
@@ -35,6 +64,12 @@
     gap: 14px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+
+    @include responsive.mobile {
+      padding: 12px 14px;
+      gap: 12px;
+      border-radius: 8px;
+    }
 
     &:hover {
       transform: translateY(-1px);
@@ -51,17 +86,18 @@
     font-size: 0.95rem;
     color: var(--accent);
     margin-bottom: 7px;
+
+    @include responsive.mobile {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
   }
 
   .item-subtitle {
     color: var(--text);
-  }
-}
 
-@media (max-width: 600px) {
-  .methodology-grid {
-    .methodology-container {
-      grid-template-columns: 1fr;
+    @include responsive.mobile {
+      font-size: 0.9rem;
     }
   }
 }

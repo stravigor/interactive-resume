@@ -1,3 +1,5 @@
+@use "../base/responsive";
+
 .navbar {
   pointer-events: auto;
   border-bottom: 1px solid var(--subtle);
@@ -6,27 +8,61 @@
     display: flex;
     flex-direction: row;
     height: 100%;
+    align-items: center;
+
+    @include responsive.mobile {
+      padding: 0 10px;
+    }
+
     .image-profile-container {
       display: flex;
       align-items: center;
       justify-content: center;
       margin-right: 15px;
+
+      @include responsive.mobile {
+        margin-right: 8px;
+      }
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         overflow: hidden;
+
+        @include responsive.mobile {
+          width: 32px;
+          height: 32px;
+        }
       }
     }
+
     .name {
       display: block;
       height: 100%;
       align-content: center;
+      font-size: 1rem;
+
+      @include responsive.mobile {
+        font-size: 0.9rem;
+        display: none; // Hide name on very small screens to save space
+      }
+
+      @include responsive.mobile-large {
+        display: block;
+        font-size: 0.9rem;
+      }
     }
+
     ul {
       padding-inline-start: 0;
       height: 100%;
       margin-right: 15px;
+
+      @include responsive.mobile {
+        margin-right: 5px;
+      }
+
       li {
         float: left;
         list-style: none;
@@ -36,18 +72,30 @@
         width: 50px;
         text-align: center;
         color: var(--text);
+
+        @include responsive.mobile {
+          width: 40px;
+          font-size: 0.9rem;
+        }
+
         &.theme-selector {
           cursor: pointer;
         }
+
         a {
           color: var(--text);
         }
+
         &.separator {
           min-width: auto;
           width: 1px;
           height: 100%;
           background-color: var(--subtle);
           margin: 0 10px;
+
+          @include responsive.mobile {
+            margin: 0 5px;
+          }
         }
       }
     }

@@ -1,3 +1,5 @@
+@use "../base/responsive";
+
 .app {
   background-color: var(--bg);
   color: var(--text);
@@ -5,7 +7,7 @@
     display: grid;
     position: fixed;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 110px;
+    grid-template-rows: 50px 1fr auto;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     top: 0;
@@ -13,10 +15,20 @@
     right: 0;
     bottom: 0;
     pointer-events: none;
+
+    @include responsive.mobile {
+      grid-template-rows: 60px 1fr auto;
+    }
   }
   .container {
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
+    padding: 0 20px;
+
+    @include responsive.mobile {
+      padding: 0 15px;
+    }
   }
   .spacer {
     flex-grow: 1;

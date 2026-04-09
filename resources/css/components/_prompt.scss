@@ -1,11 +1,26 @@
+@use "../base/responsive";
+
 .prompt {
   padding-top: 25px;
   pointer-events: auto;
   background-color: var(--bg);
   border-top: 1px solid var(--subtle);
+
+  @include responsive.mobile {
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+
   .container {
-    width: 700px;
-    // height: 100%;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include responsive.mobile {
+      padding: 0 15px;
+    }
+
     .prompt-field {
       border-radius: 3px;
       padding: 7px 15px;
@@ -13,10 +28,22 @@
       position: relative;
       min-height: 1.5em;
       border: 1px solid var(--subtle);
+      box-sizing: border-box;
+      font-size: 16px; // Prevent zoom on iOS
+      line-height: 1.4;
+
+      @include responsive.mobile {
+        padding: 12px 15px;
+        min-height: 44px; // Touch-friendly height
+        border-radius: 8px;
+        font-size: 16px; // Prevent iOS zoom
+      }
+
       &:focus {
         outline: none;
         border: 1px solid var(--muted);
       }
+
       &:empty::before {
         content: attr(data-placeholder);
         color: var(--muted);
@@ -24,11 +51,18 @@
         position: absolute;
       }
     }
+
     .displaimer {
       font-size: 13px;
       text-align: center;
       margin-top: 10px;
       color: var(--muted);
+
+      @include responsive.mobile {
+        font-size: 12px;
+        margin-top: 8px;
+        line-height: 1.3;
+      }
     }
   }
 }

@@ -82,7 +82,6 @@ For projects type:
       {
         "name": "Strav Framework",
         "description": "Full-stack TypeScript framework with IoC, WebSockets, and Vue islands.",
-        "emoji": "⚡",
         "techStack": ["TypeScript", "Bun", "Vue.js"]
       }
     ]
@@ -97,7 +96,7 @@ For contact type:
     "email": "liva.ramarolahy@gmail.com",
     "phone": "064-591-0514",
     "linkedin": "linkedin.com/in/liva-ramarolahy",
-    "github": "github.com/livaramarolahy",
+    "github": "github.com/stravigor",
     "location": "Bangkok, Thailand"
   }
 }
@@ -108,8 +107,8 @@ For methodology type:
   "content": {
     "title": "I care about how code is written:",
     "items": [
-      {"title": "Test-Driven Dev", "subtitle": "PHPUnit · Jest", "emoji": "✅"},
-      {"title": "Clean Architecture", "subtitle": "SOLID · DDD", "emoji": "🏗️"}
+      {"title": "Test-Driven Dev", "subtitle": "PHPUnit · Jest"},
+      {"title": "Clean Architecture", "subtitle": "SOLID · DDD"}
     ]
   }
 }
