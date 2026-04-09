@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { brain } from '@strav/brain'
 import { Agent } from '@strav/brain'
+import { z } from 'zod'
 import { query } from '@strav/database'
 import { Message } from '../models/public'
 import { env } from '@strav/kernel/helpers/env'
@@ -12,13 +13,21 @@ import { StructuredResponse } from '../types/responses'
  * Resume Assistant Agent
  */
 class ResumeAgent extends Agent {
-  provider = 'openai'
-  model = env('OPENAI_MODEL', 'gpt-5.4-mini-2026-03-17')
+  provider = 'anthropic'
+  model = env('ANTHROPIC_MODEL', 'claude-sonnet-4-6')
   temperature = 0.7
   maxTokens = 2000
   tools = [sendResumeTool]
 
   instructions = fs.readFileSync(path.join(process.cwd(), 'data', 'system-prompt.md'), 'utf-8')
+
+  // Define structured output schema to ensure JSON response
+  output = z.object({
+    type: z.string(),
+    content: z.any().optional(),
+    data: z.any().optional(),
+    text: z.string().optional()
+  }) as any
 }
 
 export default class AIService {
@@ -43,29 +52,56 @@ export default class AIService {
   /**
    * Parse JSON response from AI
    */
-  private parseAIResponse(response: string): StructuredResponse {
+  private parseAIResponse(response: string | any): StructuredResponse {
     try {
-      // Try to parse as JSON
-      const parsed = JSON.parse(response)
-
-      // Validate the structure
-      if (!parsed.type || parsed.content === undefined) {
-        throw new Error('Invalid response structure')
+      // If response is already an object (from structured output), use it directly
+      if (typeof response === 'object' && response !== null) {
+        // Handle structured output from agent
+        if (response.type && (response.content !== undefined || response.data !== undefined || response.text !== undefined)) {
+          return {
+            type: response.type,
+            data: response.data || (response.type !== 'text' ? response.content : null),
+            text: response.text || (response.type === 'text' ? response.content : '')
+          }
+        }
       }
 
-      return {
-        type: parsed.type,
-        data: parsed.type !== 'text' ? parsed.content : null,
-        text: parsed.type === 'text' ? parsed.content : ''
+      // Handle string responses
+      if (typeof response === 'string') {
+        // Strip markdown wrapper if present
+        let jsonContent = response.trim()
+        if (jsonContent.startsWith('```json') || jsonContent.startsWith('```')) {
+          jsonContent = jsonContent.replace(/^```(?:json)?\n?/, '').replace(/\n?```\s*$/, '').trim()
+        }
+
+        // Try to parse as JSON
+        const parsed = JSON.parse(jsonContent)
+
+        // Validate the structure
+        if (!parsed.type || parsed.content === undefined) {
+          throw new Error('Invalid response structure')
+        }
+
+        return {
+          type: parsed.type,
+          data: parsed.type !== 'text' ? parsed.content : null,
+          text: parsed.type === 'text' ? parsed.content : ''
+        }
       }
+
+      throw new Error('Invalid response type')
     } catch (error) {
-      console.error('Failed to parse AI JSON response:', error, 'Response:', response)
+      console.error('Failed to parse AI response:', error, 'Response:', response)
 
-      // Fallback to text response if JSON parsing fails
+      // Fallback to text response if parsing fails
+      const textContent = typeof response === 'string' ? response :
+                          (typeof response === 'object' && response?.text) ? response.text :
+                          'I apologize, but I encountered an error processing your request.'
+
       return {
         type: 'text',
         data: null,
-        text: response || 'I apologize, but I encountered an error processing your request.'
+        text: textContent
       }
     }
   }
@@ -121,7 +157,14 @@ export default class AIService {
         .with(enhancedContext)
         .run()
 
-      // Get the AI's response
+      // With structured output, result.data contains the parsed JSON object
+      // result.text contains the raw text response
+      if (result.data && typeof result.data === 'object') {
+        // Use the structured data directly
+        return this.parseAIResponse(result.data)
+      }
+
+      // Fallback to text response if no structured data
       const responseContent = result.text || (typeof result.data === 'string' ? result.data : '')
 
       if (!responseContent || responseContent.trim() === '') {
@@ -146,7 +189,7 @@ export default class AIService {
         return this.parseAIResponse(directResponse || '')
       }
 
-      // Parse the AI's JSON response
+      // Parse the AI's response
       return this.parseAIResponse(responseContent)
 
     } catch (error) {
