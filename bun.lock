@@ -5,13 +5,13 @@
     "": {
       "name": "interactive-resume",
       "dependencies": {
-        "@strav/brain": "0.2.9",
-        "@strav/cli": "0.2.9",
-        "@strav/database": "0.2.9",
-        "@strav/http": "0.2.9",
-        "@strav/kernel": "0.2.9",
-        "@strav/signal": "0.2.9",
-        "@strav/view": "0.2.9",
+        "@strav/brain": "0.2.10",
+        "@strav/cli": "0.2.10",
+        "@strav/database": "0.2.10",
+        "@strav/http": "0.2.10",
+        "@strav/kernel": "0.2.10",
+        "@strav/signal": "0.2.10",
+        "@strav/view": "0.2.10",
         "@types/dompurify": "^3.2.0",
         "@types/marked": "^6.0.0",
         "dompurify": "^3.3.3",
@@ -19,12 +19,11 @@
         "marked": "^17.0.6",
         "pinia": "^3.0.4",
         "reflect-metadata": "^0.2.2",
-        "sass": "^1.80.0",
         "vue": "^3.5.32",
         "zod": "^4.3.6",
       },
       "devDependencies": {
-        "@strav/testing": "0.2.9",
+        "@strav/testing": "0.2.10",
         "@types/bun": "latest",
         "@types/luxon": "^3.7.1",
       },
@@ -71,25 +70,25 @@
 
     "@pinojs/redact": ["@pinojs/redact@0.4.0", "", {}, "sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg=="],
 
-    "@strav/brain": ["@strav/brain@0.2.9", "", { "dependencies": { "@strav/workflow": "0.2.8", "zod": "^3.25 || ^4.0" }, "peerDependencies": { "@strav/kernel": "0.2.8" } }, "sha512-6WhJuswjBHq9DFHUzkHSN+AtDkAo79ni+NYQaJu6DB+MJjoqm76pi9hTghrf89erfmiZLW8/Ecs9BfnhXlUT9g=="],
+    "@strav/brain": ["@strav/brain@0.2.10", "", { "dependencies": { "@strav/workflow": "0.2.9", "zod": "^3.25 || ^4.0" }, "peerDependencies": { "@strav/kernel": "0.2.9" } }, "sha512-ldna4Kt31+690e09Tkq5JC94rT6jPPfgI2/trJpjdsw8BPthdD2blJXnOUqfxK9OTIYZMPcqarA0DC6XkZlsEg=="],
 
-    "@strav/cli": ["@strav/cli@0.2.9", "", { "dependencies": { "chalk": "^5.6.2", "commander": "^14.0.3", "prettier": "^3.8.1" }, "peerDependencies": { "@strav/database": "0.2.8", "@strav/http": "0.2.8", "@strav/kernel": "0.2.8", "@strav/queue": "0.2.8", "@strav/signal": "0.2.8" }, "bin": { "strav": "src/cli/strav.ts" } }, "sha512-Ade095/ge8kaNTb1BOU9du65IeMqteSplh7JUtqv3ZunYT+LlxW61lPyDaRc3CZCZpOHJpl8c+d6rcWOGh1hYg=="],
+    "@strav/cli": ["@strav/cli@0.2.10", "", { "dependencies": { "chalk": "^5.6.2", "commander": "^14.0.3", "prettier": "^3.8.1" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/queue": "0.2.9", "@strav/signal": "0.2.9" }, "bin": { "strav": "src/cli/strav.ts" } }, "sha512-ovYYI7nollZNfoWsTMBazOW+SJOHy3ZXuxQTLOmFSdKIkgjirahq9F1OB12sj9LoLXR60ORkdFGMfwIBrn85cw=="],
 
-    "@strav/database": ["@strav/database@0.2.9", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "reflect-metadata": "^0.2.2" }, "peerDependencies": { "@strav/kernel": "0.2.8" } }, "sha512-/QqSqNn11j5C96D96oNFy1XMvF+gNFtjJLlmRGh5Z3Neo1qA9YPILwU1X1nuaRB4QD0mFRn27rxMU2mnOCzciw=="],
+    "@strav/database": ["@strav/database@0.2.10", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "reflect-metadata": "^0.2.2" }, "peerDependencies": { "@strav/kernel": "0.2.9" } }, "sha512-TTErFT7YE6omcThPH8HmHnsp1fc4Sqqg6N6wKOBczzcgE6e/hb7d0P+2OCFG9vfrRMXI4rpjNF65BEB23iCVEA=="],
 
-    "@strav/http": ["@strav/http@0.2.9", "", { "dependencies": { "@types/luxon": "^3.7.1", "@vue/compiler-sfc": "^3.5.28", "luxon": "^3.7.2" }, "peerDependencies": { "@strav/database": "0.2.8", "@strav/kernel": "0.2.8" } }, "sha512-elXcl6RSOBimy1a/Vpacb8YWi+OLJtD6hV8OvzbYTKKd43F2FQbKj+sObY1uK6Gh5RQNkaXSodcXWK8/Jxnl/A=="],
+    "@strav/http": ["@strav/http@0.2.10", "", { "dependencies": { "@types/luxon": "^3.7.1", "@vue/compiler-sfc": "^3.5.28", "luxon": "^3.7.2" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/kernel": "0.2.9" } }, "sha512-UxLepxCzvSQO9v2C1hdu20ik1zNXhht3tgY2Jpv6VHcaHmoGDM3gfx50/RkR9wrmt9qWX40rzu7pNNQkYCrA+w=="],
 
-    "@strav/kernel": ["@strav/kernel@0.2.9", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "reflect-metadata": "^0.2.2", "ulid": "^3.0.2" } }, "sha512-xxy+sIoH0rFLWnDLg8w4J5+VCbDx/uNq5t53Tm00OH+bibv6xrGAbfcW33fbJiw5pYfH1rojpiIo/Yib/KkFMA=="],
+    "@strav/kernel": ["@strav/kernel@0.2.10", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "reflect-metadata": "^0.2.2", "ulid": "^3.0.2" } }, "sha512-8W5A6hopp3JO7u2zqjAr6iRrF/uuINghSjBmL3OP9Gr4gBNtuEEyaegjmvNvJlcLIuNPUyYbzOX8bpth177mhA=="],
 
-    "@strav/queue": ["@strav/queue@0.2.8", "", { "peerDependencies": { "@strav/database": "0.2.6", "@strav/kernel": "0.2.6" } }, "sha512-y0Dr6QcR/x6mRaae0pHVNx/zQIQBo0ga3zc4e24KLVV2158j2ZRdWsHF1aI+5iSzmJ2rVTQBTZs6LRypsGtTCQ=="],
+    "@strav/queue": ["@strav/queue@0.2.9", "", { "peerDependencies": { "@strav/database": "0.2.8", "@strav/kernel": "0.2.8" } }, "sha512-jWnj0+cW6P+IizALDUuuWbADeGh/audcr3LY3JgzfbidSGUI0iWL3fGjRse3YsvYmFin14eRwIc4xXuN/GPfgA=="],
 
-    "@strav/signal": ["@strav/signal@0.2.9", "", { "dependencies": { "@types/nodemailer": "^6.4.0", "juice": "^11.0.0", "nodemailer": "^6.10.0" }, "peerDependencies": { "@strav/database": "0.2.8", "@strav/http": "0.2.8", "@strav/kernel": "0.2.8", "@strav/queue": "0.2.8", "@strav/view": "0.2.8" } }, "sha512-70WrGS4iVOpfc/krVVY6i6rqBQgFAvVrZVkWm2xorndnDuJHgwqdPSCBxiqOJr27nnm58fj1z+eG3MRukqlYyQ=="],
+    "@strav/signal": ["@strav/signal@0.2.10", "", { "dependencies": { "@types/nodemailer": "^6.4.0", "juice": "^11.0.0", "nodemailer": "^6.10.0" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/queue": "0.2.9", "@strav/view": "0.2.9" } }, "sha512-JKAJj4v8wMVkbZNguM3iAou1PWcAoQfVHZ4DSVqhA1+lYEVfZCAvuKw0SzQScG7bc1cz5BvdhNjjL858FjsgKg=="],
 
-    "@strav/testing": ["@strav/testing@0.2.9", "", { "peerDependencies": { "@strav/database": "0.2.8", "@strav/http": "0.2.8", "@strav/kernel": "0.2.8", "@strav/view": "0.2.8" } }, "sha512-bN15M4+/kN2vXuPjrLfoxeDbTI9MQHo9uQzxEtryzshduwAv4h/77NfjcBbUXD23sunupGCTcx5alcAcpkl4Ew=="],
+    "@strav/testing": ["@strav/testing@0.2.10", "", { "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/view": "0.2.9" } }, "sha512-zHQ+mb62R0tKE42/caX6Prm/1KtP2WRX3JsHW/ygnRGCfpitoVA7TVyWxbv4SN3YJwuKpNrccmwAEQcnVsVneA=="],
 
-    "@strav/view": ["@strav/view@0.2.9", "", { "dependencies": { "@vue/compiler-sfc": "^3.5.28" }, "peerDependencies": { "@strav/http": "0.2.8", "@strav/kernel": "0.2.8", "sass": "^1.80.0", "vue": "^3.5.0" }, "optionalPeers": ["sass"] }, "sha512-+qTJ/4y1R111PUGVs6TeU37okwfumSECRHokDVft1x8Rib4s5qXTa96l/LKcln2jFY3nxSdctSTAHrYjWMJoEg=="],
+    "@strav/view": ["@strav/view@0.2.10", "", { "dependencies": { "@vue/compiler-sfc": "^3.5.28", "sass": "^1.80.0" }, "peerDependencies": { "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "vue": "^3.5.0" } }, "sha512-BrVdxtqHklpXSfLDE43K/zvBkn9mV/Z7SZM6/uRGtrq896F/80TeDsgkzHsXXNHRFTza/ZAaoPQmXSg2ql7q7Q=="],
 
-    "@strav/workflow": ["@strav/workflow@0.2.8", "", { "peerDependencies": { "@strav/kernel": "0.2.6" } }, "sha512-RfwTEoybt55SME868vq+jdTXaHelrRwQFy7Y4ohlo8WzPNafpWggGLlNPz1cWhrRQGl/hikHqv7p549H9+NnCA=="],
+    "@strav/workflow": ["@strav/workflow@0.2.9", "", { "peerDependencies": { "@strav/kernel": "0.2.8" } }, "sha512-aSW0q4Dd/30dEGeAbSOmIIp/MjEqgfk0DRTnGXkXiTE66vK9eamYrwIG1BhQc5DBWAhMLA1RRDIGbAXGOWEzyg=="],
 
     "@types/bun": ["@types/bun@1.3.11", "", { "dependencies": { "bun-types": "1.3.11" } }, "sha512-5vPne5QvtpjGpsGYXiFyycfpDF2ECyPcTSsFBMa0fraoxiQyMJ3SmuQIGhzPg2WJuWxVBoxWJ2kClYTcw/4fAg=="],
 
