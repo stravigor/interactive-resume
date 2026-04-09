@@ -170,6 +170,13 @@ export const useMessageStore = defineStore('messages', () => {
     fetchHistory(sessionId)
   }
 
+  function clearMessages() {
+    messages.value = []
+    conversation.value = null
+    currentSessionId.value = null
+    isPending.value = false
+    error.value = null
+  }
 
   return {
     messages,
@@ -189,6 +196,7 @@ export const useMessageStore = defineStore('messages', () => {
     updateMessage,
     sendMessage,
     setPending,
-    initializeStore
+    initializeStore,
+    clearMessages
   }
 })

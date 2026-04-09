@@ -79,6 +79,10 @@
     const n = parseFloat(val);
     return isNaN(n) ? val : n;
   };
+  var toNumber = (val) => {
+    const n = isString(val) ? Number(val) : NaN;
+    return isNaN(n) ? val : n;
+  };
   var _globalThis;
   var getGlobalThis = () => {
     return _globalThis || (_globalThis = typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {});
@@ -1937,6 +1941,17 @@
       return raw ? value : [`${key}=`, value];
     }
   }
+  function assertNumber(val, type) {
+    if (false)
+      ;
+    if (val === undefined) {
+      return;
+    } else if (typeof val !== "number") {
+      warn$1(`${type} is not a valid number - got ${JSON.stringify(val)}.`);
+    } else if (isNaN(val)) {
+      warn$1(`${type} is NaN - the duration expression might be incorrect.`);
+    }
+  }
   var ErrorTypeStrings$1 = {
     ["sp"]: "serverPrefetch hook",
     ["bc"]: "beforeCreate hook",
@@ -2890,6 +2905,302 @@
     return targetAnchor;
   }
   var leaveCbKey = /* @__PURE__ */ Symbol("_leaveCb");
+  var enterCbKey = /* @__PURE__ */ Symbol("_enterCb");
+  function useTransitionState() {
+    const state = {
+      isMounted: false,
+      isLeaving: false,
+      isUnmounting: false,
+      leavingVNodes: /* @__PURE__ */ new Map
+    };
+    onMounted(() => {
+      state.isMounted = true;
+    });
+    onBeforeUnmount(() => {
+      state.isUnmounting = true;
+    });
+    return state;
+  }
+  var TransitionHookValidator = [Function, Array];
+  var BaseTransitionPropsValidators = {
+    mode: String,
+    appear: Boolean,
+    persisted: Boolean,
+    onBeforeEnter: TransitionHookValidator,
+    onEnter: TransitionHookValidator,
+    onAfterEnter: TransitionHookValidator,
+    onEnterCancelled: TransitionHookValidator,
+    onBeforeLeave: TransitionHookValidator,
+    onLeave: TransitionHookValidator,
+    onAfterLeave: TransitionHookValidator,
+    onLeaveCancelled: TransitionHookValidator,
+    onBeforeAppear: TransitionHookValidator,
+    onAppear: TransitionHookValidator,
+    onAfterAppear: TransitionHookValidator,
+    onAppearCancelled: TransitionHookValidator
+  };
+  var recursiveGetSubtree = (instance) => {
+    const subTree = instance.subTree;
+    return subTree.component ? recursiveGetSubtree(subTree.component) : subTree;
+  };
+  var BaseTransitionImpl = {
+    name: `BaseTransition`,
+    props: BaseTransitionPropsValidators,
+    setup(props, { slots }) {
+      const instance = getCurrentInstance();
+      const state = useTransitionState();
+      return () => {
+        const children = slots.default && getTransitionRawChildren(slots.default(), true);
+        if (!children || !children.length) {
+          return;
+        }
+        const child = findNonCommentChild(children);
+        const rawProps = toRaw(props);
+        const { mode } = rawProps;
+        if (mode && mode !== "in-out" && mode !== "out-in" && mode !== "default") {
+          warn$1(`invalid <transition> mode: ${mode}`);
+        }
+        if (state.isLeaving) {
+          return emptyPlaceholder(child);
+        }
+        const innerChild = getInnerChild$1(child);
+        if (!innerChild) {
+          return emptyPlaceholder(child);
+        }
+        let enterHooks = resolveTransitionHooks(innerChild, rawProps, state, instance, (hooks) => enterHooks = hooks);
+        if (innerChild.type !== Comment) {
+          setTransitionHooks(innerChild, enterHooks);
+        }
+        let oldInnerChild = instance.subTree && getInnerChild$1(instance.subTree);
+        if (oldInnerChild && oldInnerChild.type !== Comment && !isSameVNodeType(oldInnerChild, innerChild) && recursiveGetSubtree(instance).type !== Comment) {
+          let leavingHooks = resolveTransitionHooks(oldInnerChild, rawProps, state, instance);
+          setTransitionHooks(oldInnerChild, leavingHooks);
+          if (mode === "out-in" && innerChild.type !== Comment) {
+            state.isLeaving = true;
+            leavingHooks.afterLeave = () => {
+              state.isLeaving = false;
+              if (!(instance.job.flags & 8)) {
+                instance.update();
+              }
+              delete leavingHooks.afterLeave;
+              oldInnerChild = undefined;
+            };
+            return emptyPlaceholder(child);
+          } else if (mode === "in-out" && innerChild.type !== Comment) {
+            leavingHooks.delayLeave = (el, earlyRemove, delayedLeave) => {
+              const leavingVNodesCache = getLeavingNodesForType(state, oldInnerChild);
+              leavingVNodesCache[String(oldInnerChild.key)] = oldInnerChild;
+              el[leaveCbKey] = () => {
+                earlyRemove();
+                el[leaveCbKey] = undefined;
+                delete enterHooks.delayedLeave;
+                oldInnerChild = undefined;
+              };
+              enterHooks.delayedLeave = () => {
+                delayedLeave();
+                delete enterHooks.delayedLeave;
+                oldInnerChild = undefined;
+              };
+            };
+          } else {
+            oldInnerChild = undefined;
+          }
+        } else if (oldInnerChild) {
+          oldInnerChild = undefined;
+        }
+        return child;
+      };
+    }
+  };
+  function findNonCommentChild(children) {
+    let child = children[0];
+    if (children.length > 1) {
+      let hasFound = false;
+      for (const c of children) {
+        if (c.type !== Comment) {
+          if (hasFound) {
+            warn$1("<transition> can only be used on a single element or component. Use <transition-group> for lists.");
+            break;
+          }
+          child = c;
+          hasFound = true;
+          if (false)
+            ;
+        }
+      }
+    }
+    return child;
+  }
+  var BaseTransition = BaseTransitionImpl;
+  function getLeavingNodesForType(state, vnode) {
+    const { leavingVNodes } = state;
+    let leavingVNodesCache = leavingVNodes.get(vnode.type);
+    if (!leavingVNodesCache) {
+      leavingVNodesCache = /* @__PURE__ */ Object.create(null);
+      leavingVNodes.set(vnode.type, leavingVNodesCache);
+    }
+    return leavingVNodesCache;
+  }
+  function resolveTransitionHooks(vnode, props, state, instance, postClone) {
+    const {
+      appear,
+      mode,
+      persisted = false,
+      onBeforeEnter,
+      onEnter,
+      onAfterEnter,
+      onEnterCancelled,
+      onBeforeLeave,
+      onLeave,
+      onAfterLeave,
+      onLeaveCancelled,
+      onBeforeAppear,
+      onAppear,
+      onAfterAppear,
+      onAppearCancelled
+    } = props;
+    const key = String(vnode.key);
+    const leavingVNodesCache = getLeavingNodesForType(state, vnode);
+    const callHook = (hook, args) => {
+      hook && callWithAsyncErrorHandling(hook, instance, 9, args);
+    };
+    const callAsyncHook = (hook, args) => {
+      const done = args[1];
+      callHook(hook, args);
+      if (isArray(hook)) {
+        if (hook.every((hook2) => hook2.length <= 1))
+          done();
+      } else if (hook.length <= 1) {
+        done();
+      }
+    };
+    const hooks = {
+      mode,
+      persisted,
+      beforeEnter(el) {
+        let hook = onBeforeEnter;
+        if (!state.isMounted) {
+          if (appear) {
+            hook = onBeforeAppear || onBeforeEnter;
+          } else {
+            return;
+          }
+        }
+        if (el[leaveCbKey]) {
+          el[leaveCbKey](true);
+        }
+        const leavingVNode = leavingVNodesCache[key];
+        if (leavingVNode && isSameVNodeType(vnode, leavingVNode) && leavingVNode.el[leaveCbKey]) {
+          leavingVNode.el[leaveCbKey]();
+        }
+        callHook(hook, [el]);
+      },
+      enter(el) {
+        if (!isHmrUpdating && leavingVNodesCache[key] === vnode)
+          return;
+        let hook = onEnter;
+        let afterHook = onAfterEnter;
+        let cancelHook = onEnterCancelled;
+        if (!state.isMounted) {
+          if (appear) {
+            hook = onAppear || onEnter;
+            afterHook = onAfterAppear || onAfterEnter;
+            cancelHook = onAppearCancelled || onEnterCancelled;
+          } else {
+            return;
+          }
+        }
+        let called = false;
+        el[enterCbKey] = (cancelled) => {
+          if (called)
+            return;
+          called = true;
+          if (cancelled) {
+            callHook(cancelHook, [el]);
+          } else {
+            callHook(afterHook, [el]);
+          }
+          if (hooks.delayedLeave) {
+            hooks.delayedLeave();
+          }
+          el[enterCbKey] = undefined;
+        };
+        const done = el[enterCbKey].bind(null, false);
+        if (hook) {
+          callAsyncHook(hook, [el, done]);
+        } else {
+          done();
+        }
+      },
+      leave(el, remove2) {
+        const key2 = String(vnode.key);
+        if (el[enterCbKey]) {
+          el[enterCbKey](true);
+        }
+        if (state.isUnmounting) {
+          return remove2();
+        }
+        callHook(onBeforeLeave, [el]);
+        let called = false;
+        el[leaveCbKey] = (cancelled) => {
+          if (called)
+            return;
+          called = true;
+          remove2();
+          if (cancelled) {
+            callHook(onLeaveCancelled, [el]);
+          } else {
+            callHook(onAfterLeave, [el]);
+          }
+          el[leaveCbKey] = undefined;
+          if (leavingVNodesCache[key2] === vnode) {
+            delete leavingVNodesCache[key2];
+          }
+        };
+        const done = el[leaveCbKey].bind(null, false);
+        leavingVNodesCache[key2] = vnode;
+        if (onLeave) {
+          callAsyncHook(onLeave, [el, done]);
+        } else {
+          done();
+        }
+      },
+      clone(vnode2) {
+        const hooks2 = resolveTransitionHooks(vnode2, props, state, instance, postClone);
+        if (postClone)
+          postClone(hooks2);
+        return hooks2;
+      }
+    };
+    return hooks;
+  }
+  function emptyPlaceholder(vnode) {
+    if (isKeepAlive(vnode)) {
+      vnode = cloneVNode(vnode);
+      vnode.children = null;
+      return vnode;
+    }
+  }
+  function getInnerChild$1(vnode) {
+    if (!isKeepAlive(vnode)) {
+      if (isTeleport(vnode.type) && vnode.children) {
+        return findNonCommentChild(vnode.children);
+      }
+      return vnode;
+    }
+    if (vnode.component) {
+      return vnode.component.subTree;
+    }
+    const { shapeFlag, children } = vnode;
+    if (children) {
+      if (shapeFlag & 16) {
+        return children[0];
+      }
+      if (shapeFlag & 32 && isFunction(children.default)) {
+        return children.default();
+      }
+    }
+  }
   function setTransitionHooks(vnode, hooks) {
     if (vnode.shapeFlag & 6 && vnode.component) {
       vnode.transition = hooks;
@@ -2900,6 +3211,27 @@
     } else {
       vnode.transition = hooks;
     }
+  }
+  function getTransitionRawChildren(children, keepComment = false, parentKey) {
+    let ret = [];
+    let keyedFragmentCount = 0;
+    for (let i = 0;i < children.length; i++) {
+      let child = children[i];
+      const key = parentKey == null ? child.key : String(parentKey) + String(child.key != null ? child.key : i);
+      if (child.type === Fragment) {
+        if (child.patchFlag & 128)
+          keyedFragmentCount++;
+        ret = ret.concat(getTransitionRawChildren(child.children, keepComment, key));
+      } else if (keepComment || child.type !== Comment) {
+        ret.push(key != null ? cloneVNode(child, { key }) : child);
+      }
+    }
+    if (keyedFragmentCount > 1) {
+      for (let i = 0;i < ret.length; i++) {
+        ret[i].patchFlag = -2;
+      }
+    }
+    return ret;
   }
   function defineComponent(options, extraOptions) {
     return isFunction(options) ? /* @__PURE__ */ (() => extend({ name: options.name }, extraOptions, { setup: options }))() : options;
@@ -6939,7 +7271,279 @@ Component that was made reactive: `, type);
       ];
     }
   };
+  var TRANSITION = "transition";
+  var ANIMATION = "animation";
   var vtcKey = /* @__PURE__ */ Symbol("_vtc");
+  var DOMTransitionPropsValidators = {
+    name: String,
+    type: String,
+    css: {
+      type: Boolean,
+      default: true
+    },
+    duration: [String, Number, Object],
+    enterFromClass: String,
+    enterActiveClass: String,
+    enterToClass: String,
+    appearFromClass: String,
+    appearActiveClass: String,
+    appearToClass: String,
+    leaveFromClass: String,
+    leaveActiveClass: String,
+    leaveToClass: String
+  };
+  var TransitionPropsValidators = /* @__PURE__ */ extend({}, BaseTransitionPropsValidators, DOMTransitionPropsValidators);
+  var decorate$1 = (t) => {
+    t.displayName = "Transition";
+    t.props = TransitionPropsValidators;
+    return t;
+  };
+  var Transition = /* @__PURE__ */ decorate$1((props, { slots }) => h(BaseTransition, resolveTransitionProps(props), slots));
+  var callHook2 = (hook, args = []) => {
+    if (isArray(hook)) {
+      hook.forEach((h2) => h2(...args));
+    } else if (hook) {
+      hook(...args);
+    }
+  };
+  var hasExplicitCallback = (hook) => {
+    return hook ? isArray(hook) ? hook.some((h2) => h2.length > 1) : hook.length > 1 : false;
+  };
+  function resolveTransitionProps(rawProps) {
+    const baseProps = {};
+    for (const key in rawProps) {
+      if (!(key in DOMTransitionPropsValidators)) {
+        baseProps[key] = rawProps[key];
+      }
+    }
+    if (rawProps.css === false) {
+      return baseProps;
+    }
+    const {
+      name = "v",
+      type,
+      duration,
+      enterFromClass = `${name}-enter-from`,
+      enterActiveClass = `${name}-enter-active`,
+      enterToClass = `${name}-enter-to`,
+      appearFromClass = enterFromClass,
+      appearActiveClass = enterActiveClass,
+      appearToClass = enterToClass,
+      leaveFromClass = `${name}-leave-from`,
+      leaveActiveClass = `${name}-leave-active`,
+      leaveToClass = `${name}-leave-to`
+    } = rawProps;
+    const durations = normalizeDuration(duration);
+    const enterDuration = durations && durations[0];
+    const leaveDuration = durations && durations[1];
+    const {
+      onBeforeEnter,
+      onEnter,
+      onEnterCancelled,
+      onLeave,
+      onLeaveCancelled,
+      onBeforeAppear = onBeforeEnter,
+      onAppear = onEnter,
+      onAppearCancelled = onEnterCancelled
+    } = baseProps;
+    const finishEnter = (el, isAppear, done, isCancelled) => {
+      el._enterCancelled = isCancelled;
+      removeTransitionClass(el, isAppear ? appearToClass : enterToClass);
+      removeTransitionClass(el, isAppear ? appearActiveClass : enterActiveClass);
+      done && done();
+    };
+    const finishLeave = (el, done) => {
+      el._isLeaving = false;
+      removeTransitionClass(el, leaveFromClass);
+      removeTransitionClass(el, leaveToClass);
+      removeTransitionClass(el, leaveActiveClass);
+      done && done();
+    };
+    const makeEnterHook = (isAppear) => {
+      return (el, done) => {
+        const hook = isAppear ? onAppear : onEnter;
+        const resolve = () => finishEnter(el, isAppear, done);
+        callHook2(hook, [el, resolve]);
+        nextFrame(() => {
+          removeTransitionClass(el, isAppear ? appearFromClass : enterFromClass);
+          addTransitionClass(el, isAppear ? appearToClass : enterToClass);
+          if (!hasExplicitCallback(hook)) {
+            whenTransitionEnds(el, type, enterDuration, resolve);
+          }
+        });
+      };
+    };
+    return extend(baseProps, {
+      onBeforeEnter(el) {
+        callHook2(onBeforeEnter, [el]);
+        addTransitionClass(el, enterFromClass);
+        addTransitionClass(el, enterActiveClass);
+      },
+      onBeforeAppear(el) {
+        callHook2(onBeforeAppear, [el]);
+        addTransitionClass(el, appearFromClass);
+        addTransitionClass(el, appearActiveClass);
+      },
+      onEnter: makeEnterHook(false),
+      onAppear: makeEnterHook(true),
+      onLeave(el, done) {
+        el._isLeaving = true;
+        const resolve = () => finishLeave(el, done);
+        addTransitionClass(el, leaveFromClass);
+        if (!el._enterCancelled) {
+          forceReflow(el);
+          addTransitionClass(el, leaveActiveClass);
+        } else {
+          addTransitionClass(el, leaveActiveClass);
+          forceReflow(el);
+        }
+        nextFrame(() => {
+          if (!el._isLeaving) {
+            return;
+          }
+          removeTransitionClass(el, leaveFromClass);
+          addTransitionClass(el, leaveToClass);
+          if (!hasExplicitCallback(onLeave)) {
+            whenTransitionEnds(el, type, leaveDuration, resolve);
+          }
+        });
+        callHook2(onLeave, [el, resolve]);
+      },
+      onEnterCancelled(el) {
+        finishEnter(el, false, undefined, true);
+        callHook2(onEnterCancelled, [el]);
+      },
+      onAppearCancelled(el) {
+        finishEnter(el, true, undefined, true);
+        callHook2(onAppearCancelled, [el]);
+      },
+      onLeaveCancelled(el) {
+        finishLeave(el);
+        callHook2(onLeaveCancelled, [el]);
+      }
+    });
+  }
+  function normalizeDuration(duration) {
+    if (duration == null) {
+      return null;
+    } else if (isObject(duration)) {
+      return [NumberOf(duration.enter), NumberOf(duration.leave)];
+    } else {
+      const n = NumberOf(duration);
+      return [n, n];
+    }
+  }
+  function NumberOf(val) {
+    const res = toNumber(val);
+    if (true) {
+      assertNumber(res, "<transition> explicit duration");
+    }
+    return res;
+  }
+  function addTransitionClass(el, cls) {
+    cls.split(/\s+/).forEach((c) => c && el.classList.add(c));
+    (el[vtcKey] || (el[vtcKey] = /* @__PURE__ */ new Set)).add(cls);
+  }
+  function removeTransitionClass(el, cls) {
+    cls.split(/\s+/).forEach((c) => c && el.classList.remove(c));
+    const _vtc = el[vtcKey];
+    if (_vtc) {
+      _vtc.delete(cls);
+      if (!_vtc.size) {
+        el[vtcKey] = undefined;
+      }
+    }
+  }
+  function nextFrame(cb) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(cb);
+    });
+  }
+  var endId = 0;
+  function whenTransitionEnds(el, expectedType, explicitTimeout, resolve) {
+    const id = el._endId = ++endId;
+    const resolveIfNotStale = () => {
+      if (id === el._endId) {
+        resolve();
+      }
+    };
+    if (explicitTimeout != null) {
+      return setTimeout(resolveIfNotStale, explicitTimeout);
+    }
+    const { type, timeout, propCount } = getTransitionInfo(el, expectedType);
+    if (!type) {
+      return resolve();
+    }
+    const endEvent = type + "end";
+    let ended = 0;
+    const end = () => {
+      el.removeEventListener(endEvent, onEnd);
+      resolveIfNotStale();
+    };
+    const onEnd = (e) => {
+      if (e.target === el && ++ended >= propCount) {
+        end();
+      }
+    };
+    setTimeout(() => {
+      if (ended < propCount) {
+        end();
+      }
+    }, timeout + 1);
+    el.addEventListener(endEvent, onEnd);
+  }
+  function getTransitionInfo(el, expectedType) {
+    const styles = window.getComputedStyle(el);
+    const getStyleProperties = (key) => (styles[key] || "").split(", ");
+    const transitionDelays = getStyleProperties(`${TRANSITION}Delay`);
+    const transitionDurations = getStyleProperties(`${TRANSITION}Duration`);
+    const transitionTimeout = getTimeout(transitionDelays, transitionDurations);
+    const animationDelays = getStyleProperties(`${ANIMATION}Delay`);
+    const animationDurations = getStyleProperties(`${ANIMATION}Duration`);
+    const animationTimeout = getTimeout(animationDelays, animationDurations);
+    let type = null;
+    let timeout = 0;
+    let propCount = 0;
+    if (expectedType === TRANSITION) {
+      if (transitionTimeout > 0) {
+        type = TRANSITION;
+        timeout = transitionTimeout;
+        propCount = transitionDurations.length;
+      }
+    } else if (expectedType === ANIMATION) {
+      if (animationTimeout > 0) {
+        type = ANIMATION;
+        timeout = animationTimeout;
+        propCount = animationDurations.length;
+      }
+    } else {
+      timeout = Math.max(transitionTimeout, animationTimeout);
+      type = timeout > 0 ? transitionTimeout > animationTimeout ? TRANSITION : ANIMATION : null;
+      propCount = type ? type === TRANSITION ? transitionDurations.length : animationDurations.length : 0;
+    }
+    const hasTransform = type === TRANSITION && /\b(?:transform|all)(?:,|$)/.test(getStyleProperties(`${TRANSITION}Property`).toString());
+    return {
+      type,
+      timeout,
+      propCount,
+      hasTransform
+    };
+  }
+  function getTimeout(delays, durations) {
+    while (delays.length < durations.length) {
+      delays = delays.concat(delays);
+    }
+    return Math.max(...durations.map((d, i) => toMs(d) + toMs(delays[i])));
+  }
+  function toMs(s) {
+    if (s === "auto")
+      return 0;
+    return Number(s.slice(0, -1).replace(",", ".")) * 1000;
+  }
+  function forceReflow(el) {
+    const targetDocument = el ? el.ownerDocument : document;
+    return targetDocument.body.offsetHeight;
+  }
   function patchClass(el, value, isSVG) {
     const transitionClasses = el[vtcKey];
     if (transitionClasses) {
@@ -13275,6 +13879,13 @@ Only state can be modified.`);
       currentSessionId.value = sessionId;
       fetchHistory(sessionId);
     }
+    function clearMessages() {
+      messages.value = [];
+      conversation.value = null;
+      currentSessionId.value = null;
+      isPending.value = false;
+      error.value = null;
+    }
     return {
       messages,
       conversation,
@@ -13293,7 +13904,8 @@ Only state can be modified.`);
       updateMessage,
       sendMessage,
       setPending,
-      initializeStore
+      initializeStore,
+      clearMessages
     };
   });
 
@@ -15723,7 +16335,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
     };
   }
 
-  // ../../../Strav.dev/sources/strav/packages/signal/src/broadcast/client.ts
+  // node_modules/@strav/signal/src/broadcast/client.ts
   class Subscription {
     channel;
     sendFn;
@@ -16029,6 +16641,67 @@ Please report this to https://github.com/markedjs/marked.`, e) {
     }
   });
 
+  // resources/islands/navbar/clear-chat.vue
+  var _hoisted_119 = { class: "clear-chat-container" };
+  var _hoisted_27 = { class: "modal-content" };
+  var _hoisted_37 = { class: "modal-actions" };
+  var clear_chat_default = /* @__PURE__ */ defineComponent({
+    __name: "clear-chat",
+    setup(__props) {
+      const showModal = ref(false);
+      const messageStore = useMessageStore();
+      function clearChat() {
+        messageStore.clearMessages();
+        localStorage.removeItem("chatSessionId");
+        showModal.value = false;
+        window.location.reload();
+      }
+      return (_ctx, _cache) => {
+        return openBlock(), createElementBlock("div", _hoisted_119, [
+          createBaseVNode("span", {
+            class: "clear-chat-button",
+            onClick: _cache[0] || (_cache[0] = ($event) => showModal.value = true)
+          }, [..._cache[3] || (_cache[3] = [
+            createBaseVNode("i", { class: "far fa-trash" }, null, -1)
+          ])]),
+          createCommentVNode(" Confirmation Modal "),
+          (openBlock(), createBlock(Teleport, { to: "body" }, [
+            createVNode(Transition, { name: "modal" }, {
+              default: withCtx(() => [
+                showModal.value ? (openBlock(), createElementBlock("div", {
+                  key: 0,
+                  class: "modal-overlay",
+                  onClick: _cache[2] || (_cache[2] = withModifiers(($event) => showModal.value = false, ["self"]))
+                }, [
+                  createBaseVNode("div", _hoisted_27, [
+                    _cache[4] || (_cache[4] = createBaseVNode("div", { class: "modal-header" }, [
+                      createBaseVNode("h3", null, "Clear Chat History")
+                    ], -1)),
+                    _cache[5] || (_cache[5] = createBaseVNode("div", { class: "modal-body" }, [
+                      createBaseVNode("p", null, "Are you sure you want to clear all messages and start a new conversation?"),
+                      createBaseVNode("p", { class: "warning-text" }, "This action cannot be undone.")
+                    ], -1)),
+                    createBaseVNode("div", _hoisted_37, [
+                      createBaseVNode("button", {
+                        class: "btn btn-cancel",
+                        onClick: _cache[1] || (_cache[1] = ($event) => showModal.value = false)
+                      }, " Cancel "),
+                      createBaseVNode("button", {
+                        class: "btn btn-confirm",
+                        onClick: clearChat
+                      }, " Clear Chat ")
+                    ])
+                  ])
+                ])) : createCommentVNode("v-if", true)
+              ]),
+              _: 1
+            })
+          ]))
+        ]);
+      };
+    }
+  });
+
   // resources/islands/navbar/mode-selector.vue
   var mode_selector_default = {
     __name: "mode-selector",
@@ -16058,7 +16731,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
   };
 
   // resources/islands/prompt-input.vue
-  var _hoisted_119 = ["onKeydown", "data-placeholder"];
+  var _hoisted_120 = ["onKeydown", "data-placeholder"];
   var prompt_input_default = {
     __name: "prompt-input",
     props: {
@@ -16119,7 +16792,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
           onFocus: handleFocus,
           onBlur: handleBlur,
           "data-placeholder": __props.placeholder
-        }, null, 40, _hoisted_119);
+        }, null, 40, _hoisted_120);
       };
     }
   };
@@ -16133,6 +16806,7 @@ Please report this to https://github.com/markedjs/marked.`, e) {
     "components/TechStackBubble": TechStackBubble_default,
     "message-header": message_header_default,
     "message-thread": message_thread_default,
+    "navbar/clear-chat": clear_chat_default,
     "navbar/mode-selector": mode_selector_default,
     "predefined-questions": predefined_questions_default,
     "prompt-input": prompt_input_default
