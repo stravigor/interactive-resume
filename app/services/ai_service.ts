@@ -21,13 +21,8 @@ class ResumeAgent extends Agent {
 
   instructions = fs.readFileSync(path.join(process.cwd(), 'data', 'system-prompt.md'), 'utf-8')
 
-  // Define structured output schema to ensure JSON response
-  output = z.object({
-    type: z.string(),
-    content: z.any().optional(),
-    data: z.any().optional(),
-    text: z.string().optional()
-  }) as any
+  // Removed structured output schema to avoid Anthropic API empty schema error
+  // Relying on text-based JSON parsing in parseAIResponse() method instead
 }
 
 export default class AIService {
