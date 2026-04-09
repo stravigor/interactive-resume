@@ -14,8 +14,8 @@ import { StructuredResponse } from '../types/responses'
 class ResumeAgent extends Agent {
   provider = 'openai'
   model = env('OPENAI_MODEL', 'gpt-5.4-mini-2026-03-17')
-  temperature = 0.5
-  maxTokens = 500
+  temperature = 0.7
+  maxTokens = 2000
   tools = [sendResumeTool]
 
   instructions = fs.readFileSync(path.join(process.cwd(), 'data', 'system-prompt.md'), 'utf-8')
