@@ -2,6 +2,8 @@
 
 An innovative, chat-based interactive resume built with the **Strav Framework** - showcasing both the framework itself and a comprehensive portfolio of projects.
 
+🌐 **Live Application: [https://me.liviathan.com/](https://me.liviathan.com/)**
+
 ## Features
 
 - 🤖 **AI-Powered Chat Interface** - Natural conversation about projects, skills, and experience
