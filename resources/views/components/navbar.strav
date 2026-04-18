@@ -6,6 +6,9 @@
     <span class="name">liva Ramarolahy</span>
     <div class="spacer"></div>
     <ul>
+      <li class="resume">
+        <a href="/resume" target="_blank">Resume</a>
+      </li>
       <li>
         <a href="https://www.linkedin.com/in/ramarolahy/" target="_blank"><i class="fab fa-linkedin fa-fw"></i></a>
       </li>
