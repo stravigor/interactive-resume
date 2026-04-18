@@ -5,7 +5,12 @@ import { providers } from './start/providers'
 
 // Build islands + CSS before the server starts so they're included in the public/ scan
 const builder = new IslandBuilder({
-  css: { entry: 'resources/css/style.scss' },
+  css: { 
+    entry: {
+      main: 'resources/css/style.scss',
+      resume: 'resources/css/resume.scss',
+    } 
+  },
 })
 
 // Register service providers

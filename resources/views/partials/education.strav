@@ -1,0 +1,34 @@
+<section class="education">
+  <h2>Core Skills</h2>
+  <h3>Backend</h3>
+  <ul>
+    <li><em>Expert</em>: PHP, Laravel</li>
+    <li><em>Proficient</em>: Node.js, Bun, TypeScript (AdonisJs, Strav)</li>
+    <li><em>Additional</em>: Java, C/C++, Python</li>
+  </ul>
+  <h3>Frontend</h3>
+  <ul>
+    <li><em>Expert</em>: HTML, CSS, Vue.js, JavaScript</li>
+    <li><em>Proficient</em>: React, Bootstrap, Tailwind CSS, Sass</li>
+  </ul>
+  <h3>Infrastructure</h3>
+  <ul>
+    <li><em>Proficient</em>: AWS (EC2, RDS, Lambda), Terraform, Docker, Linux/bash</li>
+  </ul>
+</section>
+
+<section class="education">
+  <h2>Education</h2>
+  <div class="item">
+    <h3>Master in Electronic Engineering</h3>
+    <p>
+      ESPA, Antananarivo, MDG
+    </p>
+    <p>Nov 1998 - Mar 2004</p>
+  </div>
+</section>
+<section class="education">
+  <h2>Language</h2>
+  <p>Malagasy, French, English</p>
+</section>
+ 

@@ -5,16 +5,16 @@
     "": {
       "name": "interactive-resume",
       "dependencies": {
-        "@strav/brain": "0.2.11",
-        "@strav/cli": "0.2.11",
-        "@strav/database": "0.2.11",
-        "@strav/http": "0.2.11",
-        "@strav/kernel": "0.2.11",
-        "@strav/signal": "0.2.11",
-        "@strav/view": "0.2.11",
+        "@strav/brain": "0.3.16",
+        "@strav/cli": "0.3.16",
+        "@strav/database": "0.3.16",
+        "@strav/http": "0.3.16",
+        "@strav/kernel": "0.3.16",
+        "@strav/signal": "0.3.16",
+        "@strav/view": "0.3.16",
         "@types/dompurify": "^3.2.0",
         "@types/marked": "^6.0.0",
-        "dompurify": "^3.3.3",
+        "dompurify": "^3.4.0",
         "luxon": "^3.7.2",
         "marked": "^17.0.6",
         "pinia": "^3.0.4",
@@ -23,7 +23,7 @@
         "zod": "^4.3.6",
       },
       "devDependencies": {
-        "@strav/testing": "0.2.11",
+        "@strav/testing": "0.3.16",
         "@types/bun": "latest",
         "@types/luxon": "^3.7.1",
       },
@@ -70,27 +70,29 @@
 
     "@pinojs/redact": ["@pinojs/redact@0.4.0", "", {}, "sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg=="],
 
-    "@strav/brain": ["@strav/brain@0.2.11", "", { "dependencies": { "@strav/workflow": "0.2.9", "zod": "^3.25 || ^4.0" }, "peerDependencies": { "@strav/kernel": "0.2.9" } }, "sha512-zJrEOxaiZvvvtmev+KuRoefOGRd9vpyVmvbeC1TVRwmMVJHEY25Zsd4vxCjt0h3i3IQEfijp3qvGYcf8ragkoA=="],
+    "@strav/auth": ["@strav/auth@0.3.15", "", { "peerDependencies": { "@strav/kernel": "0.3.15" } }, "sha512-2wCQP/aKyMZthGLGN5HhlbS+Hv2W3Kr6eGg/N/yxnkftu8jfg6FIURjrVJrRtgcK676G/4bkhIsonkcP2fhnXA=="],
 
-    "@strav/cli": ["@strav/cli@0.2.11", "", { "dependencies": { "chalk": "^5.6.2", "commander": "^14.0.3", "prettier": "^3.8.1" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/queue": "0.2.9", "@strav/signal": "0.2.9" }, "bin": { "strav": "src/cli/strav.ts" } }, "sha512-Z7t09HlWlnIc8lN/rTRWfzAw2OQxiazpcIn9n+NHWceodP+Y/KpkHQMMbRWKd8lYcn6CXldCsr2rH3CBm29TKA=="],
+    "@strav/brain": ["@strav/brain@0.3.16", "", { "dependencies": { "@strav/workflow": "0.3.16", "zod": "^3.25 || ^4.0" }, "peerDependencies": { "@strav/kernel": "0.3.16" } }, "sha512-/YcdNkc8r/f5RFVgQ0KVBi/V1WuO48rL5gSWPe2qCNB/TmkRxelur9Ul1sjRbCI5KKuxHujImmHK3Ce1bl86Gg=="],
 
-    "@strav/database": ["@strav/database@0.2.11", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "reflect-metadata": "^0.2.2" }, "peerDependencies": { "@strav/kernel": "0.2.9" } }, "sha512-2b6fysOgIqNiifi5WfP2l1RoTRLdsUsCe7lUJi1QcQYGNVrbZ5ZiNasj5y1JiZ8X0VCezxFOJ5dPpdAPyA5utg=="],
+    "@strav/cli": ["@strav/cli@0.3.16", "", { "dependencies": { "chalk": "^5.6.2", "commander": "^14.0.3", "prettier": "^3.8.1" }, "peerDependencies": { "@strav/database": "0.3.16", "@strav/http": "0.3.16", "@strav/kernel": "0.3.16", "@strav/queue": "0.3.16", "@strav/signal": "0.3.16" }, "bin": { "strav": "src/cli/strav.ts" } }, "sha512-26uugQB+fH3+TRCCH5SpOL2LbyG50FkSszdvF2BsDr+5TP1r6jfYeHqxl35a8ZW7+NyF6N7HtRkoUJkompRynw=="],
 
-    "@strav/http": ["@strav/http@0.2.11", "", { "dependencies": { "@types/luxon": "^3.7.1", "@vue/compiler-sfc": "^3.5.28", "luxon": "^3.7.2" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/kernel": "0.2.9" } }, "sha512-GokwN48JOViX6ugT/q2/F3QrTvGSYTxSqWJLnL5ozDCX9WbCcQqaWxIR3WAMqXr3T0DZ+fmLrsQ3/YxdGMlmXA=="],
+    "@strav/database": ["@strav/database@0.3.16", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "reflect-metadata": "^0.2.2" }, "peerDependencies": { "@strav/kernel": "0.3.16" } }, "sha512-RLEKaN4DZ9xAmfitn1FUUzCM1/muUTyRL152zbt7HeQ3OIK4nS+gUVr2GeJVdMAW4yYEK2KeFE7dcv9nCbuCSg=="],
 
-    "@strav/kernel": ["@strav/kernel@0.2.11", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "reflect-metadata": "^0.2.2", "ulid": "^3.0.2" } }, "sha512-dXxcpAphyQxEvEA9hKOfTtYiJjO03cmLQFuImDnGZvsnoMRn94j74nVZ1lkFuSOpzE5w3jUuk2hYvRfnFwDcAw=="],
+    "@strav/http": ["@strav/http@0.3.16", "", { "dependencies": { "@types/luxon": "^3.7.1", "@vue/compiler-sfc": "^3.5.28", "luxon": "^3.7.2" }, "peerDependencies": { "@strav/auth": "0.3.16", "@strav/database": "0.3.16", "@strav/kernel": "0.3.16" } }, "sha512-DEvx5ysZDdzC94FlcMnFQXaQMx4p871XoyEPv+AA9J9O5YDq5AF+eevuDQ9Rup2OrW4fnu+SvdI+IDZn6ZJULg=="],
+
+    "@strav/kernel": ["@strav/kernel@0.3.16", "", { "dependencies": { "@types/luxon": "^3.7.1", "luxon": "^3.7.2", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "reflect-metadata": "^0.2.2", "ulid": "^3.0.2" } }, "sha512-BLkq/36q0zUv6xh3xoGsDt3vqz4Ge6tE3mOgFowxT+vgTgBjf2aal3neXYLMqT1rfU/s8LA2TrXV3HEXQDYYXA=="],
 
     "@strav/queue": ["@strav/queue@0.2.9", "", { "peerDependencies": { "@strav/database": "0.2.8", "@strav/kernel": "0.2.8" } }, "sha512-jWnj0+cW6P+IizALDUuuWbADeGh/audcr3LY3JgzfbidSGUI0iWL3fGjRse3YsvYmFin14eRwIc4xXuN/GPfgA=="],
 
-    "@strav/signal": ["@strav/signal@0.2.11", "", { "dependencies": { "@types/nodemailer": "^6.4.0", "juice": "^11.0.0", "nodemailer": "^6.10.0" }, "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/queue": "0.2.9", "@strav/view": "0.2.9" } }, "sha512-mVIY4l5BbwRHZXINoHBQF7+I123abcxsw0oEHKfkAefj/6hdgAxP22n0l+jJgJW2wm4uT/PVq4RpBiWYINIthA=="],
+    "@strav/signal": ["@strav/signal@0.3.16", "", { "dependencies": { "@types/nodemailer": "^6.4.0", "juice": "^11.0.0", "nodemailer": "^6.10.0" }, "peerDependencies": { "@strav/database": "0.3.16", "@strav/http": "0.3.16", "@strav/kernel": "0.3.16", "@strav/queue": "0.3.16", "@strav/view": "0.3.16" } }, "sha512-TPo36iKaXJ0skwM6ES8EfFw3lG/7y/KR+ZEer8SxKBhTrVlxENCDR++p6jumTAQ5LgVJS7YSrP1UE7s8FvbBZw=="],
 
-    "@strav/testing": ["@strav/testing@0.2.11", "", { "peerDependencies": { "@strav/database": "0.2.9", "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "@strav/view": "0.2.9" } }, "sha512-9GfYTmN8zUM30lmhWgFC/D3ga9W1NEz+xh8j4wYSc041a9pKRETwuqjPYqQqGNiRl9yt7qE/D3KB/zla4pDP2A=="],
+    "@strav/testing": ["@strav/testing@0.3.16", "", { "peerDependencies": { "@strav/database": "0.3.16", "@strav/http": "0.3.16", "@strav/kernel": "0.3.16", "@strav/view": "0.3.16" } }, "sha512-w19k52QbMThJxCuzBoKlDBUaYf3hrWJni6iv72PBR2EHoa8bI+eUpdd5dKmK0wqI3hSwXNzk7rzeDRATLeZfXw=="],
 
-    "@strav/view": ["@strav/view@0.2.11", "", { "dependencies": { "@vue/compiler-sfc": "^3.5.28", "sass": "^1.80.0" }, "peerDependencies": { "@strav/http": "0.2.9", "@strav/kernel": "0.2.9", "vue": "^3.5.0" } }, "sha512-GVFxxNHiOsXj4pTFBd/eaLW8TFA+kqFHbOWiJkBb2gWFQqTueCT+MCpF1yhPknyjZnnqXkjrG0V0mYDgpCeR2w=="],
+    "@strav/view": ["@strav/view@0.3.16", "", { "dependencies": { "@vue/compiler-sfc": "^3.5.28", "sass": "^1.80.0" }, "peerDependencies": { "@strav/http": "0.3.16", "@strav/kernel": "0.3.16", "vue": "^3.5.0" } }, "sha512-ADt+lQASjGHtP7kbEUwc568FftAaQT+piszgL6YIFEcPdTl6S3Z7YfhVS3V3Kc+ai1mF0gcK59An/vC1hdmZ3g=="],
 
-    "@strav/workflow": ["@strav/workflow@0.2.9", "", { "peerDependencies": { "@strav/kernel": "0.2.8" } }, "sha512-aSW0q4Dd/30dEGeAbSOmIIp/MjEqgfk0DRTnGXkXiTE66vK9eamYrwIG1BhQc5DBWAhMLA1RRDIGbAXGOWEzyg=="],
+    "@strav/workflow": ["@strav/workflow@0.3.16", "", { "peerDependencies": { "@strav/kernel": "0.3.16" } }, "sha512-uW+qs4h9FASbyvCOVB5b5mLOZK6v6kiwyBkJTdKqPx7P/80Rrwr4vFpZAuZDbbxdz8h8lp9SLaFVMCxgu09wDQ=="],
 
-    "@types/bun": ["@types/bun@1.3.11", "", { "dependencies": { "bun-types": "1.3.11" } }, "sha512-5vPne5QvtpjGpsGYXiFyycfpDF2ECyPcTSsFBMa0fraoxiQyMJ3SmuQIGhzPg2WJuWxVBoxWJ2kClYTcw/4fAg=="],
+    "@types/bun": ["@types/bun@1.3.12", "", { "dependencies": { "bun-types": "1.3.12" } }, "sha512-DBv81elK+/VSwXHDlnH3Qduw+KxkTIWi7TXkAeh24zpi5l0B2kUg9Ga3tb4nJaPcOFswflgi/yAvMVBPrxMB+A=="],
 
     "@types/dompurify": ["@types/dompurify@3.2.0", "", { "dependencies": { "dompurify": "*" } }, "sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg=="],
 
@@ -136,7 +138,7 @@
 
     "boolbase": ["boolbase@1.0.0", "", {}, "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww=="],
 
-    "bun-types": ["bun-types@1.3.11", "", { "dependencies": { "@types/node": "*" } }, "sha512-1KGPpoxQWl9f6wcZh57LvrPIInQMn2TQ7jsgxqpRzg+l0QPOFvJVH7HmvHo/AiPgwXy+/Thf6Ov3EdVn1vOabg=="],
+    "bun-types": ["bun-types@1.3.12", "", { "dependencies": { "@types/node": "*" } }, "sha512-HqOLj5PoFajAQciOMRiIZGNoKxDJSr6qigAttOX40vJuSp6DN/CxWp9s3C1Xwm4oH7ybueITwiaOcWXoYVoRkA=="],
 
     "chalk": ["chalk@5.6.2", "", {}, "sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA=="],
 
@@ -168,7 +170,7 @@
 
     "domhandler": ["domhandler@5.0.3", "", { "dependencies": { "domelementtype": "^2.3.0" } }, "sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w=="],
 
-    "dompurify": ["dompurify@3.3.3", "", { "optionalDependencies": { "@types/trusted-types": "^2.0.7" } }, "sha512-Oj6pzI2+RqBfFG+qOaOLbFXLQ90ARpcGG6UePL82bJLtdsa6CYJD7nmiU8MW9nQNOtCHV3lZ/Bzq1X0QYbBZCA=="],
+    "dompurify": ["dompurify@3.4.0", "", { "optionalDependencies": { "@types/trusted-types": "^2.0.7" } }, "sha512-nolgK9JcaUXMSmW+j1yaSvaEaoXYHwWyGJlkoCTghc97KgGDDSnpoU/PlEnw63Ah+TGKFOyY+X5LnxaWbCSfXg=="],
 
     "domutils": ["domutils@3.2.2", "", { "dependencies": { "dom-serializer": "^2.0.0", "domelementtype": "^2.3.0", "domhandler": "^5.0.3" } }, "sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw=="],
 
@@ -315,6 +317,8 @@
     "wrappy": ["wrappy@1.0.2", "", {}, "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ=="],
 
     "zod": ["zod@4.3.6", "", {}, "sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg=="],
+
+    "@types/dompurify/dompurify": ["dompurify@3.3.3", "", { "optionalDependencies": { "@types/trusted-types": "^2.0.7" } }, "sha512-Oj6pzI2+RqBfFG+qOaOLbFXLQ90ARpcGG6UePL82bJLtdsa6CYJD7nmiU8MW9nQNOtCHV3lZ/Bzq1X0QYbBZCA=="],
 
     "dom-serializer/entities": ["entities@4.5.0", "", {}, "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="],
 

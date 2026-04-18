@@ -1,0 +1,81 @@
+<section>
+  <h2>Work Experiences</h2>
+  <div class="experience">
+    <h3>Creator &amp; Maintainer - Strav framework</h3>
+    <div class="meta">
+      <span>Myself</span>
+      <span>Mar 2026 - Present</span>
+    </div>
+    <ul>
+      <li>Architected Strav, a modular TypeScript framework for the Bun runtime, targeting enterprise-grade applications with first-class AI integration.</li>
+      <li>Designed the framework around developer experience as a primary constraint - opinionated defaults, type-safe APIs, and minimal boilerplate.</li>
+      <li>Co-developed the codebase through extensive Human-AI collaboration using Claude Code, validating the workflow referenced in the summary.</li>
+    </ul>
+    <p>
+      <a href="https://github.com/stravigor/strav" target="_blank">https://github.com/stravigor/strav</a>
+    </p>
+    <p class="tech-stack">
+      Bun, TypeScript, PostgreSQL, Sass, Vue.js
+    </p>
+  </div>
+  <div class="experience">
+    <h3>Senior Backend Developer</h3>
+    <div class="meta">
+      <span>Befeni Ltd, Thailand</span>
+      <span>Jan 2021 - Mar 2026</span>
+    </div>
+    <ul>
+      <li>Architected a multi-tenant e-commerce platform enabling German shirt resellers to design custom garments with rule-based fabric/collar/cuff validation and dynamic pricing.</li>
+      <li>Built a factory ERP system that tracks hundreds of made-to-measure orders through production stages, including an optimized box packing algorithm and fabric consumption calculator that reduced shipping costs and waste.</li>
+      <li>Cut development infrastructure costs by 70% by building an Infrastructure Management Portal (Terraform CDKTF + AdonisJS) that automated EC2 and RDS provisioning and aggressively terminated idle instances.</li>
+    </ul>
+    <p class="tech-stack">
+      PHP, JavaScript, Typescript, Laravel, Vue.js, React, AdonisJS, Terraform
+    </p>
+  </div>
+  <div class="experience">
+    <h3>R&D Computer Vision Engineer</h3>
+    <div class="meta">
+      <span>NCC Networks, Thailand</span>
+      <span>Feb 2017 - Jan 2021</span>
+    </div>
+    <ul>
+      <li>Built a face recognition system to track customer behavior and movement patterns across retail stores.</li>
+      <li>Developed a pedestrian and vehicle detection pipeline for automated foot-traffic counting in retail environments.</li>
+      <li>Designed a helmet detection system to enforce PPE compliance and improve worker safety on construction sites.</li>
+    </ul>
+    <p class="tech-stack">
+      OpenCV, OpenVino, PyTorch, Yolo, Darknet, C++, Python, CUDA
+    </p>
+  </div>
+  <div class="experience">
+    <h3>iOs and Web Developer</h3>
+    <div class="meta">
+      <span>WishWon Systems, Thailand</span>
+      <span>Aug 2013 - Feb 2017</span>
+    </div>
+    <ul>
+      <li>Built a location-based iOS application for indoor shopping mall navigation, guiding shoppers to stores and promotions.</li>
+      <li>Developed an augmented reality experience using the Vuforia SDK, gamifying in-store engagement for retail clients.</li>
+      <li>Shipped a second location-based iOS app for discovering nearby food trucks in real time.</li>
+    </ul>
+    <p class="tech-stack">
+      Objective-C, XCode, Vuforia, PHP, Kohana, Google Maps API
+    </p>
+  </div>
+  <div class="experience">
+    <h3>Earlier Career (Freelance &amp; Contract)</h3>
+    <div class="meta">
+      <span>Various Clients, Madagascar &amp; Thailand</span>
+      <span>2004 - 2013</span>
+    </div>
+    <ul>
+      <li>Built custom CMS platforms using Kohana Framework for clients including a Swiss company, and developed an HR management system with Zend Framework.</li>
+      <li>Developed mobile applications including a news feed reader for Antenne R&eacute;union broadcasting and a social networking app for iPhone using Objective-C.</li>
+      <li>Created real-time vehicle tracking systems with GPS devices and Google Maps API, and built Java J2ME messaging clients for mobile phones.</li>
+    </ul>
+    <p class="tech-stack">
+      PHP, Kohana, Zend Framework, Ruby on Rails, Objective-C, Java J2ME, JavaScript
+    </p>
+  </div>
+</section>

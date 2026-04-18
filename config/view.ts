@@ -3,6 +3,12 @@ export default {
   cache: false,
   assets: [
     'css/style.css',
+    'css/resume.css',
     'builds/islands.js',
   ],
+  pages: {
+    directory: 'pages',
+    enabled: true,
+    indexFile: 'index.strav'
+  }
 }

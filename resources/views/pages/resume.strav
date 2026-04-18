@@ -1,0 +1,23 @@
+@layout('layouts/resume')
+
+@section('content')
+<section class="header">
+  <div class="title">
+    <span class="name">Liva Ramarolahy</span>
+    <span class="position">Senior Backend Developer</span>
+  </div>
+  <div class="contact">
+    <ul>
+      <li><span>+66 64 591 0514</span></li>
+      <li><span>liva.ramarolahy@gmail.com</span></li>
+      <li><span>Samutprakan, Thailand</span></li>
+      <li><span>https://www.linkedin.com/in/ramarolahy/</span></li>
+    </ul>
+  </div>
+</section>
+<section class="summary">
+  Senior Backend Developer with deep expertise in PHP (Laravel), JavaScript (Vue.js, React), and TypeScript (AdonisJs, Strav). 
+  Experienced in both maintaining and modernizing legacy codebases and architecting greenfield projects from the ground up. 
+  Passionate about Human-AI collaboration, an interest put into practice as co-creator of the Strav framework.
+</section>
+@end

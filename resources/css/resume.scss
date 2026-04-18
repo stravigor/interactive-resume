@@ -1,0 +1,151 @@
+@use "base/reset";
+@use "base/typography";
+
+
+body {
+  background: #2d2d2d;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+  min-height: 100vh;
+  // .letter  {
+  //   .sheet {
+  //     width: 216mm;
+  //     height: 279mm;
+  //   }
+  // }
+}
+
+.container {
+  width: 21cm;
+  margin: 0 auto;
+  padding: 1cm;
+  box-sizing: border-box;
+  background: #fff;
+  min-height: 29.7cm;
+}
+
+a {
+  color: #000;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1cm;
+  border-bottom: 2px solid #94a3b8;
+  padding-bottom: 0.5cm;
+  .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    text-align: center;
+    font-family: "Outfit", sans-serif;
+    .name {
+      font-size: 35px;
+      font-weight: 500;
+      color: var(--bot-text);
+      text-transform: uppercase;
+    }
+    .position {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+  .contact {
+    width: 45%;
+    ul {
+      list-style: none;
+      li {
+        text-align: right;
+      }
+    }
+  }
+}
+
+.summary {
+  // font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  // font-style: italic;
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: justify;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 25% 2px 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 25px;
+  grid-row-gap: 0px;
+  margin-top: 20px;
+  section {
+    border-top: 2px solid #94a3b8;
+    padding-top: 20px;
+  }
+  h2 {
+    font-family: "Outfit", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #0f766e; //#475569;
+  }
+}
+
+.divider {
+  height: 100%;
+  background-color: #94a3b8;
+}
+
+.experience {
+  margin-bottom: 25px;
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .meta {
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  ul {
+    padding-inline-start: 13px;
+  }
+  .tech-stack {
+    font-size: 15px;
+    margin-top: 10px;
+    background-color: #f4f4f5;
+    padding: 5px 10px;
+  }
+}
+
+.education {
+  margin-bottom: 25px;
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  ul {
+    padding-inline-start: 0;
+    list-style: none;
+    margin-bottom: 15px;
+  }
+  .item {
+    margin-bottom: 15px;
+  }
+}
+
+// --- Print -------------------------------------------------------------------
+
+// @page {
+//     size: A4;
+//     margin: 0;
+// }
