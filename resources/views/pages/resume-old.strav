@@ -1,0 +1,23 @@
+@layout('layouts/resume')
+
+@section('content')
+<section class="header">
+  <div class="title">
+    <span class="name">Liva Ramarolahy</span>
+    <span class="position">Senior Backend-Oriented Full-Stack Developer</span>
+  </div>
+  <div class="contact">
+    <ul>
+      <li><span>+66 64 591 0514</span></li>
+      <li><span>liva.ramarolahy@gmail.com</span></li>
+      <li><span>Samutprakan, Thailand</span></li>
+      <li><span>https://www.linkedin.com/in/ramarolahy/</span></li>
+    </ul>
+  </div>
+</section>
+<section class="summary">
+  Backend-oriented Senior Full-Stack Developer with 20+ years of experience designing APIs, data models, business workflows, infrastructure automation, and production systems.
+  Strong hands-on experience with PHP/Laravel, TypeScript, Bun, AdonisJS, PostgreSQL, MySQL, AWS, Docker, Terraform, JavaScript, Vue.js, and React.
+  Experienced in owning products end to end: system architecture, multi-tenant platforms, ERP workflows, integrations, performance-sensitive services, admin dashboards, and user-facing interfaces.
+</section>
+@end

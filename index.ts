@@ -9,6 +9,7 @@ const builder = new IslandBuilder({
     entry: {
       main: 'resources/css/style.scss',
       resume: 'resources/css/resume.scss',
+      simple: 'resources/css/simple.scss',
     } 
   },
 })

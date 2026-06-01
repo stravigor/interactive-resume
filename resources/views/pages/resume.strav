@@ -1,23 +1,81 @@
-@layout('layouts/resume')
-
+@layout('layouts/simple')
 @section('content')
-<section class="header">
-  <div class="title">
-    <span class="name">Liva Ramarolahy</span>
-    <span class="position">Senior Backend Developer</span>
-  </div>
-  <div class="contact">
-    <ul>
-      <li><span>+66 64 591 0514</span></li>
-      <li><span>liva.ramarolahy@gmail.com</span></li>
-      <li><span>Samutprakan, Thailand</span></li>
-      <li><span>https://www.linkedin.com/in/ramarolahy/</span></li>
-    </ul>
-  </div>
-</section>
-<section class="summary">
-  Senior Backend Developer with deep expertise in PHP (Laravel), JavaScript (Vue.js, React), and TypeScript (AdonisJs, Strav). 
-  Experienced in both maintaining and modernizing legacy codebases and architecting greenfield projects from the ground up. 
-  Passionate about Human-AI collaboration, an interest put into practice as co-creator of the Strav framework.
-</section>
+  <h1>liva Ramarolahy</h1>
+  <p>
+    Backend-oriented Senior Full-Stack Developer with 20+ years of experience designing APIs, data models, business workflows, infrastructure automation, and production systems.
+    Strong hands-on experience with PHP/Laravel, TypeScript, Bun, AdonisJS, PostgreSQL, MySQL, AWS, Docker, Terraform, JavaScript, Vue.js, and React.
+    Experienced in owning products end to end: system architecture, multi-tenant platforms, ERP workflows, integrations, performance-sensitive services, admin dashboards, and user-facing interfaces.
+  </p>
+  <hr/>
+
+  <!-- Strav Framework -->
+  <h2>Creator &amp; Maintainer - Strav Framework</h2>
+  <p><em>Mar 2026 - Present</em></p>
+  <ul>
+    <li>Architected Strav, a backend-first full-stack TypeScript framework for Bun with an IoC container, type-safe ORM, migrations, routing, WebSockets, and PostgreSQL support.</li>
+    <li>Designed core framework boundaries around dependency injection, service registration, database access, real-time channels, CLI workflows, and testable module structure.</li>
+    <li>Added Vue.js islands for SSR-first pages with focused interactivity, keeping frontend hydration lightweight and integrated with backend rendering conventions.</li>
+    <li>Directed and reviewed AI-assisted implementation with Claude Code, using detailed specifications and architecture constraints to ship framework features end to end.</li>
+  </ul>
+  <p>
+    <a href="https://strav.dev" target="_blank">https://strav.dev</a>
+  </p>
+  <p>
+    <em>TypeScript, Bun, PostgreSQL, WebSockets, Vue.js, Sass</em>
+  </p>
+
+  <!-- Befeni Ltd -->
+  <h2>Senior Full-Stack Developer</h2>
+  <p><em>Befeni Ltd, Thailand: Jan 2021 - Mar 2026</em></p>
+  <ul>
+    <li>Led backend architecture for a multi-tenant fashion e-commerce platform, including reseller workspaces, customer/order domains, garment configuration rules, dynamic pricing, and factory order handoff.</li>
+    <li>Built the Laravel/MySQL API, order, ACL, inventory, and data layers behind storefront and factory workflows, including fabric usage calculations, supplier fulfillment, and production analytics.</li>
+    <li>Designed a factory ERP that tracks made-to-measure orders through cutting, stitching, QC, packaging, and shipping, including optimized box packing to reduce shipping cost and waste.</li>
+    <li>Built an AdonisJS and Terraform CDKTF portal that automated AWS EC2/RDS test environments and reduced development infrastructure costs by 70%.</li>
+    <li>Delivered Vue.js and React interfaces for shirt design, shopping cart, fabric explorer, fabric book, customer management, and admin dashboards.</li>
+  </ul>
+  <p>
+    <em>PHP, Laravel, MySQL, TypeScript, AdonisJS, AWS, Terraform, Vue.js, React, JavaScript</em>
+  </p>
+
+  <!-- NCC Networks -->
+  <h2>Computer Vision Engineer</h2>
+  <p><em>NCC Networks, Thailand: Feb 2017 - Jan 2021</em></p>
+  <ul>
+    <li>Built production backend services and computer vision pipelines for retail analytics, construction safety, crossroad monitoring, face analytics, and license plate recognition.</li>
+    <li>Developed detection, tracking, and inference systems with OpenCV, PyTorch, Darknet, Caffe, OpenVINO, DeepSort, Tesseract, C++, Python, and CUDA.</li>
+    <li>Designed inter-service communication layers with ZeroMQ and NNG, connecting model inference services to operational applications and dashboards.</li>
+  </ul>
+  <p>
+    <em>OpenCV, OpenVINO, PyTorch, YOLO, Darknet, C++, Python, CUDA</em>
+  </p>
+
+  <!-- Wishwon -->
+  <h2>iOS and Full-Stack Web Developer</h2>
+  <p><em>Wishwon, Thailand: Aug 2013 - Feb 2017</em></p>
+  <ul>
+    <li>Built PHP and JavaScript web services supporting location-based iOS applications for indoor shopping mall navigation, promotions, and real-time nearby food truck discovery.</li>
+    <li>Integrated Google Maps APIs, application data flows, and mobile backend services behind user-facing iOS and augmented reality experiences.</li>
+    <li>Delivered full-stack features from client requirements through backend logic, API integration, UI flows, maps, and release support.</li>
+  </ul>
+  <p>
+    <em>PHP, JavaScript, Kohana, Objective-C, Google Maps API, Vuforia, Xcode</em>
+  </p>
+
+  <!-- Early -->
+  <h2>Earlier Career (Freelance &amp; Contract)</h2>
+  <p><em>Various Clients, Madagascar &amp; Thailand: 2004 - 2013</em></p>
+  <ul>
+    <li>Built custom CMS platforms using Kohana Framework for clients including a Swiss company, and developed an HR management system with Zend Framework.</li>
+    <li>Developed mobile applications including a news feed reader for Antenne R&eacute;union broadcasting and a social networking app for iPhone using Objective-C.</li>
+    <li>Created real-time vehicle tracking systems with GPS devices and Google Maps API, and built Java J2ME messaging clients for mobile phones.</li>
+  </ul>
+  <p class="tech-stack">
+    <em>PHP, Kohana, Zend Framework, Ruby on Rails, Objective-C, Java J2ME, JavaScript</em>
+  </p>
+
+  <hr/>
+  <p><em>Last updated: 1 June 2026</em></p>
+
+  
 @end
